@@ -7,18 +7,26 @@ class TimeList extends StatefulWidget {
   final TimeOfDay firstTime;
   final TimeOfDay lastTime;
   final TimeOfDay initialTime;
-  final int timeBlock;
+  final int timeStep;
   final double padding;
   final void Function(TimeOfDay hour) onHourSelected;
+  final Color textColor;
+  final Color backgroundColor;
+  final Color activeTextColor;
+  final Color activeBackgroundColor;
 
   TimeList({
     Key key,
     this.padding,
-    @required this.timeBlock,
+    @required this.timeStep,
     @required this.firstTime,
     @required this.lastTime,
     @required this.onHourSelected,
     this.initialTime,
+    this.textColor,
+    this.backgroundColor,
+    this.activeTextColor,
+    this.activeBackgroundColor,
   }) : assert(firstTime != null && lastTime != null),
       assert(lastTime.after(firstTime), 'lastTime not can be before firstTime'),
       assert(onHourSelected != null),
@@ -47,7 +55,7 @@ class _TimeListState extends State<TimeList> {
   @override
   void didUpdateWidget(TimeList oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.firstTime != widget.firstTime) {
+    if (oldWidget.firstTime != widget.firstTime || oldWidget.timeStep != widget.timeStep) {
       _initialData();
       _animateScroll(hours.indexOf(widget.initialTime));
     }
@@ -63,14 +71,14 @@ class _TimeListState extends State<TimeList> {
     var hour = TimeOfDay(hour: widget.firstTime.hour, minute: widget.firstTime.minute);
     while(hour.before(widget.lastTime)) {
       hours.add(hour);
-      hour = hour.add(minutes: widget.timeBlock);
+      hour = hour.add(minutes: widget.timeStep);
     }
   }
   
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height / 15,
+      height: 45,
       child: ListView.builder(
         controller: _scrollController,
         scrollDirection: Axis.horizontal,
@@ -84,7 +92,11 @@ class _TimeListState extends State<TimeList> {
           return Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: TimeButton(
-              hour: hour.hhmm(),
+              textColor: widget.textColor,
+              backgroundColor: widget.backgroundColor,
+              activeTextColor: widget.activeTextColor,
+              activeBackgroundColor: widget.activeBackgroundColor,
+              time: hour.hhmm(),
               value: _selectedHour == hour,
               onSelect: (_) => _selectHour(index, hour),
             ),

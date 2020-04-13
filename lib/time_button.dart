@@ -2,11 +2,24 @@ import 'package:flutter/material.dart';
 
 class TimeButton extends StatefulWidget {
 
-  final String hour;
+  final String time;
   final Function onSelect;
   final bool value;
+  final Color textColor;
+  final Color backgroundColor;
+  final Color activeTextColor;
+  final Color activeBackgroundColor;
 
-  const TimeButton({Key key, this.hour, this.onSelect, this.value = false}) : super(key: key);
+  const TimeButton({
+    Key key, 
+    this.time, 
+    this.onSelect, 
+    this.value = false, 
+    this.textColor, 
+    this.backgroundColor, 
+    this.activeTextColor, 
+    this.activeBackgroundColor
+  }) : super(key: key);
 
   @override
   _TimeButtonState createState() => _TimeButtonState();
@@ -30,25 +43,31 @@ class _TimeButtonState extends State<TimeButton> {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialButton(
-      child: Text(
-        widget.hour,
-        style: TextStyle(
-            color: isSelected
-                ? Theme.of(context).accentColor
-                : Colors.white),
-      ),
+      elevation: 0,
       color: isSelected
-          ? Theme.of(context).primaryColor
-          : Theme.of(context).accentColor,
+        ? widget.activeBackgroundColor ?? Theme.of(context).primaryColor
+        : widget.backgroundColor ?? Theme.of(context).backgroundColor,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
-          side: BorderSide(
-              color: isSelected ? Colors.transparent : Colors.white)),
+          side: BorderSide( color: isSelected
+            ? widget.activeTextColor ?? Colors.white
+            : widget.activeBackgroundColor ?? Theme.of(context).primaryColor),
+      ),
+      child: Text(
+        widget.time,
+        style: TextStyle(
+          fontSize: 16,
+          color: isSelected
+            ? widget.activeTextColor ?? Colors.white
+            : widget.textColor ?? Colors.white,
+        ),
+      ),
       onPressed: () {
         if (!isSelected) {
           isSelected = true;
-          widget.onSelect(widget.hour);
+          widget.onSelect(widget.time);
         }
         setState(() {});
       },
