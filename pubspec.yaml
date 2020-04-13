@@ -1,0 +1,17 @@
+name: time_range
+description: Flutter package for selecting a time range.
+version: 0.0.1
+author: Código Base
+homepage: https://github.com/josmarpav/time_range.git
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
