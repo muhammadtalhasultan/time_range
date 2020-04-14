@@ -53,7 +53,7 @@ class _TimeButtonState extends State<TimeButton> {
           borderRadius: BorderRadius.circular(8),
           side: BorderSide( color: isSelected
             ? widget.activeTextColor ?? Colors.white
-            : widget.activeBackgroundColor ?? Theme.of(context).primaryColor),
+            : widget.textColor ?? Theme.of(context).primaryColor),
       ),
       child: Text(
         widget.time,

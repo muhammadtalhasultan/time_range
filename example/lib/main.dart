@@ -8,6 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
   }
@@ -20,31 +21,38 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  static const orange = Color(0xFFFE9A75);
+  static const dark = Color(0xFF333A47);
+  static const white = Color(0xFFF2F2F2);
+  static const gray = Color(0xFF90A8C6);
+
   TimeRangeResult _timeRange;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Flutter Time Range Example'),
-      ),
+      backgroundColor: dark,
       body: Column(
         children: <Widget>[
 
-          SizedBox(height: 10),
-
-          Text('Select Range', style: TextStyle(fontWeight: FontWeight.bold),),
-
-          SizedBox(height: 10),
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: Text('Flutter Time Range Example',
+                style: Theme.of(context).textTheme.title
+                  .copyWith(fontWeight: FontWeight.bold, color: orange),
+              ),
+            ),
+          ),
 
           TimeRange(
-            fromTitle: Text('From'),
-            toTitle: Text('To'),
+            fromTitle: Text('From', style: TextStyle(fontSize: 18, color: gray),),
+            toTitle: Text('To', style: TextStyle(fontSize: 18, color: gray),),
             titlePadding: 20,
-            textColor: Colors.white,
-            activeTextColor: Colors.amber,
-            backgroundColor: Colors.blueGrey[300],
-            activeBackgroundColor: Colors.blueGrey,
+            textColor: white,
+            activeTextColor: dark,
+            backgroundColor: Colors.transparent,
+            activeBackgroundColor: orange,
             firstTime: TimeOfDay(hour: 14, minute: 30),
             lastTime: TimeOfDay(hour: 20, minute: 00),
             timeStep: 10,
@@ -52,13 +60,13 @@ class _HomePageState extends State<HomePage> {
             onRangeCompleted: (range) => setState(() => _timeRange = range),
           ),
 
-          SizedBox(height: 10),
+          SizedBox(height: 30),
 
           if (_timeRange != null)
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Text('Selected Range: ${_timeRange.start.hhmm()} - ${_timeRange.end.hhmm()}',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 20, color: gray),
               ),
             )
         ],
