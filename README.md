@@ -29,7 +29,8 @@ You can use this package when you need to add a time range selector to your appl
 
 You can review the example folder for a complete example of using the widget.
 
-`TimeRange(
+```
+TimeRange(
     fromTitle: Text('From', style: TextStyle(fontSize: 18, color: gray),),
     toTitle: Text('To', style: TextStyle(fontSize: 18, color: gray),),
     titlePadding: 20,
@@ -42,4 +43,5 @@ You can review the example folder for a complete example of using the widget.
     timeStep: 10,
     timeBlock: 30,
     onRangeCompleted: (range) => setState(() => print(range)),
-  ),`
+  )
+  ```
