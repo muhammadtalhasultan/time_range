@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 extension TimeOfDayExtension on TimeOfDay {
-
   int compare(TimeOfDay other) {
     return this.inMinutes() - other.inMinutes();
   }
@@ -30,15 +29,13 @@ extension TimeOfDayExtension on TimeOfDay {
 
   static TimeOfDay fromString(String time) {
     return TimeOfDay(
-      hour: int.parse(time.split(":")[0]),
-      minute: int.parse(time.split(":")[1])
-    );
+        hour: int.parse(time.split(":")[0]),
+        minute: int.parse(time.split(":")[1]));
   }
 
   String hhmm() {
     String _addLeadingZeroIfNeeded(int value) {
-      if (value < 10)
-        return '0$value';
+      if (value < 10) return '0$value';
       return value.toString();
     }
 

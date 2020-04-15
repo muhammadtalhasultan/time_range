@@ -3,7 +3,6 @@ import 'package:time_range/time_button.dart';
 import 'time_of_day_extension.dart';
 
 class TimeList extends StatefulWidget {
-
   final TimeOfDay firstTime;
   final TimeOfDay lastTime;
   final TimeOfDay initialTime;
@@ -27,17 +26,17 @@ class TimeList extends StatefulWidget {
     this.backgroundColor,
     this.activeTextColor,
     this.activeBackgroundColor,
-  }) : assert(firstTime != null && lastTime != null),
-      assert(lastTime.after(firstTime), 'lastTime not can be before firstTime'),
-      assert(onHourSelected != null),
-      super(key: key);
-  
+  })  : assert(firstTime != null && lastTime != null),
+        assert(
+            lastTime.after(firstTime), 'lastTime not can be before firstTime'),
+        assert(onHourSelected != null),
+        super(key: key);
+
   @override
   _TimeListState createState() => _TimeListState();
 }
 
 class _TimeListState extends State<TimeList> {
-
   final ScrollController _scrollController = ScrollController();
   final double itemExtent = 85;
   TimeOfDay _selectedHour;
@@ -55,7 +54,8 @@ class _TimeListState extends State<TimeList> {
   @override
   void didUpdateWidget(TimeList oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.firstTime != widget.firstTime || oldWidget.timeStep != widget.timeStep) {
+    if (oldWidget.firstTime != widget.firstTime ||
+        oldWidget.timeStep != widget.timeStep) {
       _initialData();
       _animateScroll(hours.indexOf(widget.initialTime));
     }
@@ -68,13 +68,14 @@ class _TimeListState extends State<TimeList> {
 
   void _loadHours() {
     hours.clear();
-    var hour = TimeOfDay(hour: widget.firstTime.hour, minute: widget.firstTime.minute);
-    while(hour.before(widget.lastTime)) {
+    var hour =
+        TimeOfDay(hour: widget.firstTime.hour, minute: widget.firstTime.minute);
+    while (hour.before(widget.lastTime)) {
       hours.add(hour);
       hour = hour.add(minutes: widget.timeStep);
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -86,7 +87,6 @@ class _TimeListState extends State<TimeList> {
         itemCount: hours.length,
         itemExtent: itemExtent,
         itemBuilder: (BuildContext context, int index) {
-
           final hour = hours[index];
 
           return Padding(
@@ -119,8 +119,6 @@ class _TimeListState extends State<TimeList> {
       offset = _scrollController.position.maxScrollExtent;
     }
     _scrollController.animateTo(offset,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.easeIn);
+        duration: Duration(milliseconds: 500), curve: Curves.easeIn);
   }
-
 }

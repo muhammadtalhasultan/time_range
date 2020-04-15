@@ -1,7 +1,6 @@
 name: time_range
-description: Flutter package for selecting a time range.
-version: 0.0.1
-author: Código Base
+description: Flutter widget for selecting a time range. You can specify the steps between the hours of the initial selector and the blocks of time that the selected range must meet. You can also fully customize the colors of the widget.
+version: 0.1.0
 homepage: https://github.com/josmarpav/time_range.git
 
 environment:

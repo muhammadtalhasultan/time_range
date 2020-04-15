@@ -36,18 +36,18 @@ class TimeRange extends StatefulWidget {
     this.backgroundColor,
     this.activeTextColor,
     this.activeBackgroundColor,
-  }) : assert(timeBlock != null),
-      assert(firstTime != null && lastTime != null),
-      assert(lastTime.after(firstTime), 'lastTime not can be before firstTime'),
-      assert(onRangeCompleted != null),
-      super(key: key);
+  })  : assert(timeBlock != null),
+        assert(firstTime != null && lastTime != null),
+        assert(
+            lastTime.after(firstTime), 'lastTime not can be before firstTime'),
+        assert(onRangeCompleted != null),
+        super(key: key);
 
   @override
   _TimeRangeState createState() => _TimeRangeState();
 }
 
 class _TimeRangeState extends State<TimeRange> {
-
   TimeOfDay _startHour;
   TimeOfDay _endHour;
 
@@ -62,20 +62,16 @@ class _TimeRangeState extends State<TimeRange> {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-
         if (widget.fromTitle != null)
           Padding(
             padding: EdgeInsets.only(left: widget.titlePadding),
             child: widget.fromTitle,
           ),
-
         SizedBox(height: 8),
-
         TimeList(
           firstTime: widget.firstTime,
           lastTime: widget.lastTime.subtract(minutes: widget.timeBlock),
@@ -88,19 +84,16 @@ class _TimeRangeState extends State<TimeRange> {
           activeTextColor: widget.activeTextColor,
           activeBackgroundColor: widget.activeBackgroundColor,
         ),
-
         if (widget.toTitle != null)
           Padding(
             padding: EdgeInsets.only(left: widget.titlePadding, top: 8),
             child: widget.toTitle,
           ),
-
         SizedBox(height: 8),
-
         TimeList(
           firstTime: _startHour == null
-            ? widget.firstTime.add(minutes: widget.timeBlock)
-            : _startHour.add(minutes: widget.timeBlock),
+              ? widget.firstTime.add(minutes: widget.timeBlock)
+              : _startHour.add(minutes: widget.timeBlock),
           lastTime: widget.lastTime,
           initialTime: _endHour,
           timeStep: widget.timeBlock,
@@ -117,7 +110,7 @@ class _TimeRangeState extends State<TimeRange> {
 
   void _startHourChanged(TimeOfDay hour) {
     _startHour = hour;
-    setState((){});
+    setState(() {});
     if (_endHour != null) {
       _endHour = null;
       widget.onRangeCompleted(null);
