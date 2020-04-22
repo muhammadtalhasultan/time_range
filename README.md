@@ -1,6 +1,6 @@
-# Time Range
+![header.jpg](header.jpg)
 
-Flutter package for selecting a time range.
+**Flutter package for selecting a time range with time blocks.**
 
 ## Getting Started
 
