@@ -1,4 +1,4 @@
-# time_range
+# Time Range
 
 Flutter package for selecting a time range.
 
