@@ -41,34 +41,40 @@ class _TimeButtonState extends State<TimeButton> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-      elevation: 0,
-      color: isSelected
-          ? widget.activeBackgroundColor ?? Theme.of(context).primaryColor
-          : widget.backgroundColor ?? Theme.of(context).backgroundColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-        side: BorderSide(
-            color: isSelected
-                ? widget.activeTextColor ?? Colors.white
-                : widget.textColor ?? Theme.of(context).primaryColor),
-      ),
-      child: Text(
-        widget.time,
-        style: TextStyle(
-          fontSize: 16,
-          color: isSelected
-              ? widget.activeTextColor ?? Colors.white
-              : widget.textColor ?? Colors.white,
-        ),
-      ),
-      onPressed: () {
+    return GestureDetector(
+      onTap: () {
         if (!isSelected) {
           isSelected = true;
           widget.onSelect(widget.time);
         }
         setState(() {});
       },
+      child: Container(
+        decoration: BoxDecoration(
+          color: isSelected
+            ? widget.activeBackgroundColor ?? Theme.of(context).primaryColor
+            : widget.backgroundColor ?? Theme.of(context).backgroundColor,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: isSelected
+              ? widget.activeBackgroundColor ?? Theme.of(context).primaryColor
+              : widget.textColor ?? Theme.of(context).primaryColor
+          ),
+        ),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              widget.time,
+              style: TextStyle(
+                color: isSelected
+                    ? widget.activeTextColor ?? Colors.white
+                    : widget.textColor ?? Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

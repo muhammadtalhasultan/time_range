@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+
             TimeRange(
               fromTitle: Text(
                 'From',
@@ -58,7 +59,7 @@ class _HomePageState extends State<HomePage> {
               activeTextColor: dark,
               backgroundColor: Colors.transparent,
               activeBackgroundColor: orange,
-              firstTime: TimeOfDay(hour: 14, minute: 30),
+              firstTime: TimeOfDay(hour: 8, minute: 00),
               lastTime: TimeOfDay(hour: 20, minute: 00),
               initialRange: TimeRangeResult(
                 TimeOfDay(hour: 14, minute: 50),
