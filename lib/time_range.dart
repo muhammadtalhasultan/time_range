@@ -20,6 +20,7 @@ class TimeRange extends StatefulWidget {
   final Color backgroundColor;
   final Color activeTextColor;
   final Color activeBackgroundColor;
+  final double hourExtend;
 
   TimeRange({
     Key key,
@@ -36,6 +37,7 @@ class TimeRange extends StatefulWidget {
     this.backgroundColor,
     this.activeTextColor,
     this.activeBackgroundColor,
+    this.hourExtend = 90,
   })  : assert(timeBlock != null),
         assert(firstTime != null && lastTime != null),
         assert(
@@ -83,6 +85,7 @@ class _TimeRangeState extends State<TimeRange> {
           backgroundColor: widget.backgroundColor,
           activeTextColor: widget.activeTextColor,
           activeBackgroundColor: widget.activeBackgroundColor,
+          hourExtend: widget.hourExtend,
         ),
         if (widget.toTitle != null)
           Padding(
@@ -103,6 +106,7 @@ class _TimeRangeState extends State<TimeRange> {
           backgroundColor: widget.backgroundColor,
           activeTextColor: widget.activeTextColor,
           activeBackgroundColor: widget.activeBackgroundColor,
+          hourExtend: widget.hourExtend,
         ),
       ],
     );

@@ -13,6 +13,7 @@ class TimeList extends StatefulWidget {
   final Color backgroundColor;
   final Color activeTextColor;
   final Color activeBackgroundColor;
+  final double hourExtend;
 
   TimeList({
     Key key,
@@ -26,6 +27,7 @@ class TimeList extends StatefulWidget {
     this.backgroundColor,
     this.activeTextColor,
     this.activeBackgroundColor,
+    this.hourExtend,
   })  : assert(firstTime != null && lastTime != null),
         assert(
             lastTime.after(firstTime), 'lastTime not can be before firstTime'),
@@ -38,7 +40,6 @@ class TimeList extends StatefulWidget {
 
 class _TimeListState extends State<TimeList> {
   final ScrollController _scrollController = ScrollController();
-  final double itemExtent = 85;
   TimeOfDay _selectedHour;
   List<TimeOfDay> hours = [];
 
@@ -85,7 +86,7 @@ class _TimeListState extends State<TimeList> {
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.only(left: widget.padding),
         itemCount: hours.length,
-        itemExtent: itemExtent,
+        itemExtent: widget.hourExtend,
         itemBuilder: (BuildContext context, int index) {
           final hour = hours[index];
 
@@ -114,7 +115,7 @@ class _TimeListState extends State<TimeList> {
   }
 
   void _animateScroll(int index) {
-    double offset = index < 0 ? 0 : index * itemExtent;
+    double offset = index < 0 ? 0 : index * widget.hourExtend;
     if (offset > _scrollController.position.maxScrollExtent) {
       offset = _scrollController.position.maxScrollExtent;
     }

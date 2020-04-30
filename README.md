@@ -25,6 +25,7 @@ You can use this package when you need to add a time range selector to your appl
 | timeStep              | double                         | Minutes jumps between initial selector hours                                                                                                                                            |
 | timeBlock             | double                         | Size in minutes of time blocks. The final selector will be recalculated depending on the selected start time for the user to select a range that contains a multiple of this time range |
 | onRangeCompleted      | void Function(TimeRangeResult) | Callback that notifies a change in the selected range. If, with a selected range, an initial time is selected again, the callback will return null.                                     |
+| hourExtend            | double                         | Size of each hour item in the list
 
 ## Use example
 
