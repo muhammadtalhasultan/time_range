@@ -67,6 +67,7 @@ class _TimeButtonState extends State<TimeButton> {
             child: Text(
               widget.time,
               style: TextStyle(
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 color: isSelected
                     ? widget.activeTextColor ?? Colors.white
                     : widget.textColor ?? Colors.white,
