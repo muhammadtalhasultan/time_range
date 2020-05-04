@@ -1,3 +1,8 @@
+## 0.2.0 - 04/05/2020
+
+* Modify selected time font weight
+* Update example
+
 ## 0.1.2 - 30/04/2020
 
 * Fix error time button does not fit theme font size
