@@ -54,6 +54,16 @@ class _TimeRangeState extends State<TimeRange> {
   @override
   void initState() {
     super.initState();
+    setRange();
+  }
+
+  @override
+  void didUpdateWidget(TimeRange oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setRange();
+  }
+
+  void setRange() {
     if (widget.initialRange != null) {
       _startHour = widget.initialRange.start;
       _endHour = widget.initialRange.end;

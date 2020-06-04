@@ -1,3 +1,7 @@
+## 0.2.1 - 04/06/2020
+
+* Fix error updating initialRange
+
 ## 0.2.0 - 04/05/2020
 
 * Modify selected time font weight

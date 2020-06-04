@@ -21,11 +21,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   static const orange = Color(0xFFFE9A75);
   static const dark = Color(0xFF333A47);
-  static const gray = Color(0xFF90A8C6);
-
   static const double leftPadding = 50;
 
+  final _defaultTimeRange = TimeRangeResult(
+    TimeOfDay(hour: 14, minute: 50),
+    TimeOfDay(hour: 15, minute: 20),
+  );
   TimeRangeResult _timeRange;
+
+  @override
+  void initState() {
+    super.initState();
+    _timeRange = _defaultTimeRange;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                   'Opening Times',
                   style: Theme.of(context)
                       .textTheme
-                      .title
+                      .headline6
                       .copyWith(fontWeight: FontWeight.bold, color: dark),
                 ),
               ),
@@ -65,10 +73,7 @@ class _HomePageState extends State<HomePage> {
                 activeBackgroundColor: dark,
                 firstTime: TimeOfDay(hour: 8, minute: 00),
                 lastTime: TimeOfDay(hour: 20, minute: 00),
-                initialRange: TimeRangeResult(
-                  TimeOfDay(hour: 14, minute: 50),
-                  TimeOfDay(hour: 15, minute: 20),
-                ),
+                initialRange: _timeRange,
                 timeStep: 10,
                 timeBlock: 30,
                 onRangeCompleted: (range) => setState(() => _timeRange = range),
@@ -77,11 +82,22 @@ class _HomePageState extends State<HomePage> {
               if (_timeRange != null)
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0, left: leftPadding),
-                  child: Text(
-                    'Selected Range: ${_timeRange.start.hhmm()} - ${_timeRange.end.hhmm()}',
-                    style: TextStyle(fontSize: 20, color: dark),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        'Selected Range: ${_timeRange.start.hhmm()} - ${_timeRange.end.hhmm()}',
+                        style: TextStyle(fontSize: 20, color: dark),
+                      ),
+                      SizedBox(height: 20),
+                      MaterialButton(
+                        child: Text('Default'),
+                        onPressed: () => setState(() => _timeRange = _defaultTimeRange),
+                        color: orange,
+                      )
+                    ],
                   ),
-                )
+                ),
             ],
           ),
         ));

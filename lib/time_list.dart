@@ -55,7 +55,8 @@ class _TimeListState extends State<TimeList> {
   void didUpdateWidget(TimeList oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.firstTime != widget.firstTime ||
-        oldWidget.timeStep != widget.timeStep) {
+        oldWidget.timeStep != widget.timeStep ||
+        oldWidget.initialTime != widget.initialTime) {
       _initialData();
       _animateScroll(hours.indexOf(widget.initialTime));
     }
