@@ -4,20 +4,22 @@ class TimeButton extends StatefulWidget {
   final String time;
   final Function onSelect;
   final bool value;
-  final Color textColor;
+  final Color timeButtonBorder;
   final Color backgroundColor;
-  final Color activeTextColor;
   final Color activeBackgroundColor;
+  final TextStyle timeButtonTextStyle;
+  final TextStyle activeTimeButtonTextStyle;
 
   const TimeButton(
       {Key key,
       this.time,
       this.onSelect,
       this.value = false,
-      this.textColor,
+      this.timeButtonBorder,
       this.backgroundColor,
-      this.activeTextColor,
-      this.activeBackgroundColor})
+      this.activeBackgroundColor,
+      this.timeButtonTextStyle,
+      this.activeTimeButtonTextStyle})
       : super(key: key);
 
   @override
@@ -52,27 +54,22 @@ class _TimeButtonState extends State<TimeButton> {
       child: Container(
         decoration: BoxDecoration(
           color: isSelected
-            ? widget.activeBackgroundColor ?? Theme.of(context).primaryColor
-            : widget.backgroundColor ?? Theme.of(context).backgroundColor,
+              ? widget.activeBackgroundColor ?? Theme.of(context).primaryColor
+              : widget.backgroundColor ?? Theme.of(context).backgroundColor,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: isSelected
-              ? widget.activeBackgroundColor ?? Theme.of(context).primaryColor
-              : widget.textColor ?? Theme.of(context).primaryColor
-          ),
+              color: isSelected
+                  ? widget.activeBackgroundColor ??
+                      Theme.of(context).primaryColor
+                  : widget.timeButtonBorder ?? Theme.of(context).primaryColor),
         ),
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(
-              widget.time,
-              style: TextStyle(
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                color: isSelected
-                    ? widget.activeTextColor ?? Colors.white
-                    : widget.textColor ?? Colors.white,
-              ),
-            ),
+            child: Text(widget.time,
+                style: isSelected
+                    ? widget.activeTimeButtonTextStyle
+                    : widget.timeButtonTextStyle),
           ),
         ),
       ),

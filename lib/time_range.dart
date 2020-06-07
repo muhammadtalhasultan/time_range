@@ -16,10 +16,11 @@ class TimeRange extends StatefulWidget {
   final double titlePadding;
   final void Function(TimeRangeResult range) onRangeCompleted;
   final TimeRangeResult initialRange;
-  final Color textColor;
+  final Color timeButtonBorder;
   final Color backgroundColor;
-  final Color activeTextColor;
   final Color activeBackgroundColor;
+  final TextStyle timeButtonTextStyle;
+  final TextStyle activeTimeButtonTextStyle;
 
   TimeRange({
     Key key,
@@ -32,10 +33,11 @@ class TimeRange extends StatefulWidget {
     this.toTitle,
     this.titlePadding = 0,
     this.initialRange,
-    this.textColor,
+    this.timeButtonBorder,
     this.backgroundColor,
-    this.activeTextColor,
     this.activeBackgroundColor,
+    this.timeButtonTextStyle,
+    this.activeTimeButtonTextStyle,
   })  : assert(timeBlock != null),
         assert(firstTime != null && lastTime != null),
         assert(
@@ -89,10 +91,11 @@ class _TimeRangeState extends State<TimeRange> {
           timeStep: widget.timeStep,
           padding: widget.titlePadding,
           onHourSelected: _startHourChanged,
-          textColor: widget.textColor,
+          timeButtonBorder: widget.timeButtonBorder,
           backgroundColor: widget.backgroundColor,
-          activeTextColor: widget.activeTextColor,
           activeBackgroundColor: widget.activeBackgroundColor,
+          timeButtonTextStyle: widget.timeButtonTextStyle,
+          activeTimeButtonTextStyle: widget.activeTimeButtonTextStyle,
         ),
         if (widget.toTitle != null)
           Padding(
@@ -109,10 +112,11 @@ class _TimeRangeState extends State<TimeRange> {
           timeStep: widget.timeBlock,
           padding: widget.titlePadding,
           onHourSelected: _endHourChanged,
-          textColor: widget.textColor,
+          timeButtonBorder: widget.timeButtonBorder,
           backgroundColor: widget.backgroundColor,
-          activeTextColor: widget.activeTextColor,
           activeBackgroundColor: widget.activeBackgroundColor,
+          timeButtonTextStyle: widget.timeButtonTextStyle,
+          activeTimeButtonTextStyle: widget.activeTimeButtonTextStyle,
         ),
       ],
     );

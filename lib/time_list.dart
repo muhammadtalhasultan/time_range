@@ -9,10 +9,11 @@ class TimeList extends StatefulWidget {
   final int timeStep;
   final double padding;
   final void Function(TimeOfDay hour) onHourSelected;
-  final Color textColor;
+  final Color timeButtonBorder;
   final Color backgroundColor;
-  final Color activeTextColor;
   final Color activeBackgroundColor;
+  final TextStyle timeButtonTextStyle;
+  final TextStyle activeTimeButtonTextStyle;
 
   TimeList({
     Key key,
@@ -22,10 +23,11 @@ class TimeList extends StatefulWidget {
     @required this.lastTime,
     @required this.onHourSelected,
     this.initialTime,
-    this.textColor,
+    this.timeButtonBorder,
     this.backgroundColor,
-    this.activeTextColor,
     this.activeBackgroundColor,
+    this.timeButtonTextStyle,
+    this.activeTimeButtonTextStyle,
   })  : assert(firstTime != null && lastTime != null),
         assert(
             lastTime.after(firstTime), 'lastTime not can be before firstTime'),
@@ -93,10 +95,11 @@ class _TimeListState extends State<TimeList> {
           return Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: TimeButton(
-              textColor: widget.textColor,
+              timeButtonBorder: widget.timeButtonBorder,
               backgroundColor: widget.backgroundColor,
-              activeTextColor: widget.activeTextColor,
               activeBackgroundColor: widget.activeBackgroundColor,
+              timeButtonTextStyle: widget.timeButtonTextStyle,
+              activeTimeButtonTextStyle: widget.activeTimeButtonTextStyle,
               time: hour.hhmm(),
               value: _selectedHour == hour,
               onSelect: (_) => _selectHour(index, hour),
