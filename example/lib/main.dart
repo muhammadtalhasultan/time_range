@@ -37,7 +37,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         backgroundColor: Colors.white70,
         body: SafeArea(
@@ -54,9 +53,7 @@ class _HomePageState extends State<HomePage> {
                       .copyWith(fontWeight: FontWeight.bold, color: dark),
                 ),
               ),
-
               SizedBox(height: 20),
-
               TimeRange(
                 fromTitle: Text(
                   'From',
@@ -67,7 +64,11 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(fontSize: 18, color: dark),
                 ),
                 titlePadding: leftPadding,
-                textColor: dark,
+                timeButtonTextStyle: TextStyle(
+                    fontWeight: FontWeight.normal, color: Colors.black87),
+                activeTimeButtonTextStyle:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                timeButtonBorder: dark,
                 activeTextColor: orange,
                 backgroundColor: Colors.transparent,
                 activeBackgroundColor: dark,
@@ -92,7 +93,8 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(height: 20),
                       MaterialButton(
                         child: Text('Default'),
-                        onPressed: () => setState(() => _timeRange = _defaultTimeRange),
+                        onPressed: () =>
+                            setState(() => _timeRange = _defaultTimeRange),
                         color: orange,
                       )
                     ],
