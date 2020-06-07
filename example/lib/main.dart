@@ -69,7 +69,6 @@ class _HomePageState extends State<HomePage> {
                 activeTimeButtonTextStyle:
                     TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                 timeButtonBorder: dark,
-                activeTextColor: orange,
                 backgroundColor: Colors.transparent,
                 activeBackgroundColor: dark,
                 firstTime: TimeOfDay(hour: 8, minute: 00),
