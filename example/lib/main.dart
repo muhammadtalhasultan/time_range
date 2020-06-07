@@ -64,11 +64,12 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(fontSize: 18, color: dark),
                 ),
                 titlePadding: leftPadding,
-                timeButtonTextStyle: TextStyle(
+                textStyle: TextStyle(
                     fontWeight: FontWeight.normal, color: Colors.black87),
-                activeTimeButtonTextStyle:
+                activeTextStyle:
                     TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-                timeButtonBorder: dark,
+                borderColor: dark,
+                activeBorderColor: orange,
                 backgroundColor: Colors.transparent,
                 activeBackgroundColor: dark,
                 firstTime: TimeOfDay(hour: 8, minute: 00),

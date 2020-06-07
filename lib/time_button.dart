@@ -4,22 +4,24 @@ class TimeButton extends StatefulWidget {
   final String time;
   final Function onSelect;
   final bool value;
-  final Color timeButtonBorder;
+  final Color borderColor;
+  final Color activeBorderColor;
   final Color backgroundColor;
   final Color activeBackgroundColor;
-  final TextStyle timeButtonTextStyle;
-  final TextStyle activeTimeButtonTextStyle;
+  final TextStyle textStyle;
+  final TextStyle activeTextStyle;
 
   const TimeButton(
       {Key key,
       this.time,
       this.onSelect,
       this.value = false,
-      this.timeButtonBorder,
+      this.borderColor,
+      this.activeBorderColor,
       this.backgroundColor,
       this.activeBackgroundColor,
-      this.timeButtonTextStyle,
-      this.activeTimeButtonTextStyle})
+      this.textStyle,
+      this.activeTextStyle})
       : super(key: key);
 
   @override
@@ -59,17 +61,14 @@ class _TimeButtonState extends State<TimeButton> {
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
               color: isSelected
-                  ? widget.activeBackgroundColor ??
-                      Theme.of(context).primaryColor
-                  : widget.timeButtonBorder ?? Theme.of(context).primaryColor),
+                  ? widget.activeBorderColor ?? Theme.of(context).primaryColor
+                  : widget.borderColor ?? Theme.of(context).primaryColor),
         ),
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(widget.time,
-                style: isSelected
-                    ? widget.activeTimeButtonTextStyle
-                    : widget.timeButtonTextStyle),
+                style: isSelected ? widget.activeTextStyle : widget.textStyle),
           ),
         ),
       ),
