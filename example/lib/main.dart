@@ -56,20 +56,32 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 20),
               TimeRange(
                 fromTitle: Text(
-                  'From',
-                  style: TextStyle(fontSize: 18, color: dark),
+                  'FROM',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: dark,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 toTitle: Text(
-                  'To',
-                  style: TextStyle(fontSize: 18, color: dark),
+                  'TO',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: dark,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 titlePadding: leftPadding,
                 textStyle: TextStyle(
-                    fontWeight: FontWeight.normal, color: Colors.black87),
-                activeTextStyle:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                  fontWeight: FontWeight.normal,
+                  color: dark,
+                ),
+                activeTextStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: orange,
+                ),
                 borderColor: dark,
-                activeBorderColor: orange,
+                activeBorderColor: dark,
                 backgroundColor: Colors.transparent,
                 activeBackgroundColor: dark,
                 firstTime: TimeOfDay(hour: 8, minute: 00),
@@ -93,8 +105,7 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(height: 20),
                       MaterialButton(
                         child: Text('Default'),
-                        onPressed: () =>
-                            setState(() => _timeRange = _defaultTimeRange),
+                        onPressed: () => setState(() => _timeRange = _defaultTimeRange),
                         color: orange,
                       )
                     ],

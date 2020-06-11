@@ -1,3 +1,7 @@
+## 0.3.0 - 11/06/2020
+
+* Add parameters textStyle, activeTextStyle and activeBorderColor
+
 ## 0.2.1 - 04/06/2020
 
 * Fix error updating initialRange

@@ -25,11 +25,11 @@ class TimeRange extends StatefulWidget {
 
   TimeRange({
     Key key,
-    this.timeStep = 60,
     @required this.timeBlock,
     @required this.onRangeCompleted,
     @required this.firstTime,
     @required this.lastTime,
+    this.timeStep = 60,
     this.fromTitle,
     this.toTitle,
     this.titlePadding = 0,
