@@ -15,8 +15,10 @@ You can use this package when you need to add a time range selector to your appl
 | fromTitle             | Widget                         | Widget displayed as the start time selector title                                                                                                                                       |
 | toTitle               | Widget                         | Widget displayed as the end time selector title                                                                                                                                         |
 | titlePadding          | double                         | Left padding applied to fromTitle and toTitle                                                                                                                                           |
-| textColor             | Color                          | Time selection button text color                                                                                                                                                        |
-| activeTextColor       | Color                          | Time selection button selected text color                                                                                                                                               |
+| borderColor             | Color                          | Time selection button border color color                                                                                                                                                        |
+| activeBorderColor             | Color                          | Time selection button border color selected color                                                                                                                                                        |
+| textStyle             | TextStyle                          | Time selection button textstyle                                                                                                                                                        |
+| activeTextStyle       | TextStyle                          | Time selection button selected textstyle                                                                                                                                               |
 | backgroundColor       | Color                          | Time selection button background color                                                                                                                                                  |
 | activeBackgroundColor | Color                          | Time selection button selected background color                                                                                                                                         |
 | firstTime             | TimeOfDay                      | Picker start time                                                                                                                                                                       |
@@ -35,8 +37,9 @@ TimeRange(
     fromTitle: Text('From', style: TextStyle(fontSize: 18, color: gray),),
     toTitle: Text('To', style: TextStyle(fontSize: 18, color: gray),),
     titlePadding: 20,
-    textColor: white,
-    activeTextColor: dark,
+    textStyle: TextStyle(fontWeight: FontWeight.normal, color: Colors.black87),
+    activeTextStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+    borderColor: dark,
     backgroundColor: Colors.transparent,
     activeBackgroundColor: orange,
     firstTime: TimeOfDay(hour: 14, minute: 30),

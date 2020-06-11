@@ -16,10 +16,12 @@ class TimeRange extends StatefulWidget {
   final double titlePadding;
   final void Function(TimeRangeResult range) onRangeCompleted;
   final TimeRangeResult initialRange;
-  final Color textColor;
+  final Color borderColor;
+  final Color activeBorderColor;
   final Color backgroundColor;
-  final Color activeTextColor;
   final Color activeBackgroundColor;
+  final TextStyle textStyle;
+  final TextStyle activeTextStyle;
 
   TimeRange({
     Key key,
@@ -32,10 +34,12 @@ class TimeRange extends StatefulWidget {
     this.toTitle,
     this.titlePadding = 0,
     this.initialRange,
-    this.textColor,
+    this.borderColor,
+    this.activeBorderColor,
     this.backgroundColor,
-    this.activeTextColor,
     this.activeBackgroundColor,
+    this.textStyle,
+    this.activeTextStyle,
   })  : assert(timeBlock != null),
         assert(firstTime != null && lastTime != null),
         assert(
@@ -89,10 +93,12 @@ class _TimeRangeState extends State<TimeRange> {
           timeStep: widget.timeStep,
           padding: widget.titlePadding,
           onHourSelected: _startHourChanged,
-          textColor: widget.textColor,
+          borderColor: widget.borderColor,
+          activeBorderColor: widget.activeBorderColor,
           backgroundColor: widget.backgroundColor,
-          activeTextColor: widget.activeTextColor,
           activeBackgroundColor: widget.activeBackgroundColor,
+          textStyle: widget.textStyle,
+          activeTextStyle: widget.activeTextStyle,
         ),
         if (widget.toTitle != null)
           Padding(
@@ -109,10 +115,12 @@ class _TimeRangeState extends State<TimeRange> {
           timeStep: widget.timeBlock,
           padding: widget.titlePadding,
           onHourSelected: _endHourChanged,
-          textColor: widget.textColor,
+          borderColor: widget.borderColor,
+          activeBorderColor: widget.activeBorderColor,
           backgroundColor: widget.backgroundColor,
-          activeTextColor: widget.activeTextColor,
           activeBackgroundColor: widget.activeBackgroundColor,
+          textStyle: widget.textStyle,
+          activeTextStyle: widget.activeTextStyle,
         ),
       ],
     );
