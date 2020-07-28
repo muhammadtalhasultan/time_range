@@ -130,8 +130,12 @@ class _TimeRangeState extends State<TimeRange> {
     _startHour = hour;
     setState(() {});
     if (_endHour != null) {
-      _endHour = null;
-      widget.onRangeCompleted(null);
+      if(_endHour.inMinutes() <= _startHour.inMinutes()){
+        _endHour = null;
+        widget.onRangeCompleted(null);
+      } else {
+        widget.onRangeCompleted(TimeRangeResult(_startHour, _endHour));
+      }
     }
   }
 
