@@ -1,3 +1,7 @@
+## 0.4.0 - 10/08/2020
+
+* Takes into account the time user has selected and the time block before resetting the end time. Thanks to @ELHorse.
+
 ## 0.3.0 - 11/06/2020
 
 * Add parameters textStyle, activeTextStyle and activeBorderColor
