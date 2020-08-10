@@ -127,11 +127,14 @@ class _TimeRangeState extends State<TimeRange> {
   }
 
   void _startHourChanged(TimeOfDay hour) {
-    _startHour = hour;
-    setState(() {});
+    setState(() => _startHour = hour);
     if (_endHour != null) {
-      _endHour = null;
-      widget.onRangeCompleted(null);
+      if(_endHour.inMinutes() <= _startHour.inMinutes() || (_endHour.inMinutes() - _startHour.inMinutes()).remainder(widget.timeBlock) != 0){
+        _endHour = null;
+        widget.onRangeCompleted(null);
+      } else {
+        widget.onRangeCompleted(TimeRangeResult(_startHour, _endHour));
+      }
     }
   }
 
