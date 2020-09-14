@@ -99,13 +99,14 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'Selected Range: ${_timeRange.start.hhmm()} - ${_timeRange.end.hhmm()}',
+                        'Selected Range: ${_timeRange.start.format(context)} - ${_timeRange.end.format(context)}',
                         style: TextStyle(fontSize: 20, color: dark),
                       ),
                       SizedBox(height: 20),
                       MaterialButton(
                         child: Text('Default'),
-                        onPressed: () => setState(() => _timeRange = _defaultTimeRange),
+                        onPressed: () =>
+                            setState(() => _timeRange = _defaultTimeRange),
                         color: orange,
                       )
                     ],

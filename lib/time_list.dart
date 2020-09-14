@@ -90,7 +90,6 @@ class _TimeListState extends State<TimeList> {
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.only(left: widget.padding),
         itemCount: hours.length,
-        itemExtent: itemExtent,
         itemBuilder: (BuildContext context, int index) {
           final hour = hours[index];
 
@@ -103,7 +102,7 @@ class _TimeListState extends State<TimeList> {
               activeBackgroundColor: widget.activeBackgroundColor,
               textStyle: widget.textStyle,
               activeTextStyle: widget.activeTextStyle,
-              time: hour.hhmm(),
+              time: hour.format(context),
               value: _selectedHour == hour,
               onSelect: (_) => _selectHour(index, hour),
             ),
