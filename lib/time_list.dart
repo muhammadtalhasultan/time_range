@@ -42,7 +42,7 @@ class TimeList extends StatefulWidget {
 
 class _TimeListState extends State<TimeList> {
   final ScrollController _scrollController = ScrollController();
-  final double itemExtent = 85;
+  final double itemExtent = 90;
   TimeOfDay _selectedHour;
   List<TimeOfDay> hours = [];
 
@@ -90,6 +90,7 @@ class _TimeListState extends State<TimeList> {
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.only(left: widget.padding),
         itemCount: hours.length,
+        itemExtent: itemExtent,
         itemBuilder: (BuildContext context, int index) {
           final hour = hours[index];
 
