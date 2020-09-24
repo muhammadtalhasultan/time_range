@@ -1,3 +1,7 @@
+## 0.5.0 - 24/09/2020
+
+* Use devices time display format. Thanks to @matthewtsmith.
+
 ## 0.4.0 - 10/08/2020
 
 * Takes into account the time user has selected and the time block before resetting the end time. Thanks to @ELHorse.
