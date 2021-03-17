@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
     TimeOfDay(hour: 14, minute: 50),
     TimeOfDay(hour: 15, minute: 20),
   );
-  TimeRangeResult _timeRange;
+  TimeRangeResult? _timeRange;
 
   @override
   void initState() {
@@ -47,10 +47,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(top: 16, left: leftPadding),
                 child: Text(
                   'Opening Times',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6
-                      .copyWith(fontWeight: FontWeight.bold, color: dark),
+                  style: Theme.of(context).textTheme.headline6?.copyWith(fontWeight: FontWeight.bold, color: dark),
                 ),
               ),
               SizedBox(height: 20),
@@ -90,6 +87,7 @@ class _HomePageState extends State<HomePage> {
                 timeStep: 10,
                 timeBlock: 30,
                 onRangeCompleted: (range) => setState(() => _timeRange = range),
+                allowAnyRange: true,
               ),
               SizedBox(height: 30),
               if (_timeRange != null)
@@ -99,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'Selected Range: ${_timeRange.start.format(context)} - ${_timeRange.end.format(context)}',
+                        'Selected Range: ${_timeRange?.start.format(context)} - ${_timeRange?.end.format(context)}',
                         style: TextStyle(fontSize: 20, color: dark),
                       ),
                       SizedBox(height: 20),
