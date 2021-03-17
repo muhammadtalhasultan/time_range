@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+typedef TimeTapCallback = void Function(String time);
+
 class TimeButton extends StatefulWidget {
-  final String? time;
-  final Function? onSelect;
+  final String time;
+  final TimeTapCallback onSelect;
   final bool value;
   final Color? borderColor;
   final Color? activeBorderColor;
@@ -13,8 +15,8 @@ class TimeButton extends StatefulWidget {
 
   const TimeButton(
       {Key? key,
-      this.time,
-      this.onSelect,
+      required this.time,
+      required this.onSelect,
       this.value = false,
       this.borderColor,
       this.activeBorderColor,
@@ -49,7 +51,7 @@ class _TimeButtonState extends State<TimeButton> {
       onTap: () {
         if (!isSelected) {
           isSelected = true;
-          widget.onSelect!(widget.time);
+          widget.onSelect(widget.time);
         }
         setState(() {});
       },
@@ -67,7 +69,7 @@ class _TimeButtonState extends State<TimeButton> {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(widget.time!,
+            child: Text(widget.time,
                 style: isSelected ? widget.activeTextStyle : widget.textStyle),
           ),
         ),

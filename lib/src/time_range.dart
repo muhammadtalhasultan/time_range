@@ -4,6 +4,8 @@ import 'package:time_range/src/util/time_of_day_extension.dart';
 
 export 'package:time_range/src/util/time_of_day_extension.dart';
 
+typedef TimeRangeSelectedCallback = void Function(TimeRangeResult? range);
+
 class TimeRange extends StatefulWidget {
   final int timeStep;
   final int timeBlock;
@@ -12,7 +14,7 @@ class TimeRange extends StatefulWidget {
   final Widget? fromTitle;
   final Widget? toTitle;
   final double titlePadding;
-  final void Function(TimeRangeResult? range) onRangeCompleted;
+  final TimeRangeSelectedCallback onRangeCompleted;
   final TimeRangeResult? initialRange;
   final Color? borderColor;
   final Color? activeBorderColor;

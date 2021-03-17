@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:time_range/src/time_button.dart';
 import 'util/time_of_day_extension.dart';
 
+typedef TimeSelectedCallback = void Function(TimeOfDay hour);
+
 class TimeList extends StatefulWidget {
   final TimeOfDay firstTime;
   final TimeOfDay lastTime;
   final TimeOfDay? initialTime;
   final int timeStep;
   final double padding;
-  final void Function(TimeOfDay hour) onHourSelected;
+  final TimeSelectedCallback onHourSelected;
   final Color? borderColor;
   final Color? activeBorderColor;
   final Color? backgroundColor;
