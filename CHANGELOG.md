@@ -1,3 +1,7 @@
+## 1.0.0 - 17/03/2021
+
+* Migrate to null-safety and refactor for best package files organization
+
 ## 0.5.0 - 24/09/2020
 
 * Use devices time display format. Thanks to @matthewtsmith.

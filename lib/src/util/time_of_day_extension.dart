@@ -17,12 +17,12 @@ extension TimeOfDayExtension on TimeOfDay {
     return this.compare(other) > 0;
   }
 
-  TimeOfDay add({int minutes}) {
+  TimeOfDay add({required int minutes}) {
     final total = this.inMinutes() + minutes;
     return TimeOfDay(hour: total ~/ 60, minute: total % 60);
   }
 
-  TimeOfDay subtract({int minutes}) {
+  TimeOfDay subtract({required int minutes}) {
     final total = this.inMinutes() - minutes;
     return TimeOfDay(hour: total ~/ 60, minute: total % 60);
   }
