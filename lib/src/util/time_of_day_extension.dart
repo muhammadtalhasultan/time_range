@@ -26,4 +26,12 @@ extension TimeOfDayExtension on TimeOfDay {
     final total = this.inMinutes() - minutes;
     return TimeOfDay(hour: total ~/ 60, minute: total % 60);
   }
+
+  bool beforeOrEqual(TimeOfDay other) {
+    return this.compare(other) <= 0;
+  }
+
+  bool afterOrEqual(TimeOfDay other) {
+    return this.compare(other) >= 0;
+  }
 }
