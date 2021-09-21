@@ -40,7 +40,8 @@ class TimeRange extends StatefulWidget {
     this.activeBackgroundColor,
     this.textStyle,
     this.activeTextStyle,
-  })  : assert(lastTime.after(firstTime), 'lastTime not can be before firstTime'),
+  })  : assert(
+            lastTime.after(firstTime), 'lastTime can not be before firstTime'),
         super(key: key);
 
   @override
@@ -61,6 +62,7 @@ class _TimeRangeState extends State<TimeRange> {
   void didUpdateWidget(TimeRange oldWidget) {
     super.didUpdateWidget(oldWidget);
     setRange();
+    print('se ejecuta');
   }
 
   void setRange() {
@@ -78,10 +80,9 @@ class _TimeRangeState extends State<TimeRange> {
       children: <Widget>[
         if (widget.fromTitle != null)
           Padding(
-            padding: EdgeInsets.only(left: widget.titlePadding),
+            padding: EdgeInsets.only(left: widget.titlePadding, bottom: 8),
             child: widget.fromTitle,
           ),
-        SizedBox(height: 8),
         TimeList(
           firstTime: widget.firstTime,
           lastTime: widget.lastTime.subtract(minutes: widget.timeBlock),
@@ -125,7 +126,10 @@ class _TimeRangeState extends State<TimeRange> {
   void _startHourChanged(TimeOfDay hour) {
     setState(() => _startHour = hour);
     if (_endHour != null) {
-      if(_endHour!.inMinutes() <= _startHour!.inMinutes() || (_endHour!.inMinutes() - _startHour!.inMinutes()).remainder(widget.timeBlock) != 0){
+      if (_endHour!.inMinutes() <= _startHour!.inMinutes() ||
+          (_endHour!.inMinutes() - _startHour!.inMinutes())
+                  .remainder(widget.timeBlock) !=
+              0) {
         _endHour = null;
         widget.onRangeCompleted(null);
       } else {
