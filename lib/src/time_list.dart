@@ -32,7 +32,8 @@ class TimeList extends StatefulWidget {
     this.activeBackgroundColor,
     this.textStyle,
     this.activeTextStyle,
-  })  : assert(lastTime.after(firstTime), 'lastTime not can be before firstTime'),
+  })  : assert(lastTime.afterOrEqual(firstTime),
+            'lastTime not can be before firstTime'),
         super(key: key);
 
   @override
@@ -74,8 +75,9 @@ class _TimeListState extends State<TimeList> {
     hours.clear();
     var hour =
         TimeOfDay(hour: widget.firstTime.hour, minute: widget.firstTime.minute);
-    while (hour.before(widget.lastTime)) {
-      hours.add(hour);
+    while (hour.beforeOrEqual(widget.lastTime)) {
+      hours.add(
+          hour.hour == TimeOfDay.hoursPerDay ? hour.replacing(hour: 0) : hour);
       hour = hour.add(minutes: widget.timeStep);
     }
   }
