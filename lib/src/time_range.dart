@@ -79,7 +79,7 @@ class _TimeRangeState extends State<TimeRange> {
       children: <Widget>[
         if (widget.fromTitle != null)
           Padding(
-            padding: EdgeInsets.only(left: widget.titlePadding, bottom: 0),
+            padding: EdgeInsets.only(left: widget.titlePadding, bottom: 8),
             child: widget.fromTitle,
           ),
         TimeList(
