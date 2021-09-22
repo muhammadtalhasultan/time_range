@@ -62,7 +62,6 @@ class _TimeRangeState extends State<TimeRange> {
   void didUpdateWidget(TimeRange oldWidget) {
     super.didUpdateWidget(oldWidget);
     setRange();
-    print('se ejecuta');
   }
 
   void setRange() {
@@ -80,7 +79,7 @@ class _TimeRangeState extends State<TimeRange> {
       children: <Widget>[
         if (widget.fromTitle != null)
           Padding(
-            padding: EdgeInsets.only(left: widget.titlePadding, bottom: 8),
+            padding: EdgeInsets.only(left: widget.titlePadding, bottom: 0),
             child: widget.fromTitle,
           ),
         TimeList(
