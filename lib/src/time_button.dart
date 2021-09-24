@@ -2,7 +2,20 @@ import 'package:flutter/material.dart';
 
 typedef TimeTapCallback = void Function(String time);
 
-class TimeButton extends StatefulWidget {
+class TimeButton extends StatelessWidget {
+  const TimeButton({
+    Key? key,
+    required this.time,
+    required this.onSelect,
+    this.value = false,
+    this.borderColor,
+    this.activeBorderColor,
+    this.backgroundColor,
+    this.activeBackgroundColor,
+    this.textStyle,
+    this.activeTextStyle,
+  }) : super(key: key);
+
   final String time;
   final TimeTapCallback onSelect;
   final bool value;
@@ -13,64 +26,29 @@ class TimeButton extends StatefulWidget {
   final TextStyle? textStyle;
   final TextStyle? activeTextStyle;
 
-  const TimeButton(
-      {Key? key,
-      required this.time,
-      required this.onSelect,
-      this.value = false,
-      this.borderColor,
-      this.activeBorderColor,
-      this.backgroundColor,
-      this.activeBackgroundColor,
-      this.textStyle,
-      this.activeTextStyle})
-      : super(key: key);
-
-  @override
-  _TimeButtonState createState() => _TimeButtonState();
-}
-
-class _TimeButtonState extends State<TimeButton> {
-  late bool isSelected;
-
-  @override
-  void initState() {
-    super.initState();
-    isSelected = widget.value;
-  }
-
-  @override
-  void didUpdateWidget(TimeButton oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    isSelected = widget.value;
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        if (!isSelected) {
-          isSelected = true;
-          widget.onSelect(widget.time);
-        }
-        setState(() {});
-      },
+      onTap: () => onSelect(time),
       child: Container(
         decoration: BoxDecoration(
-          color: isSelected
-              ? widget.activeBackgroundColor ?? Theme.of(context).primaryColor
-              : widget.backgroundColor ?? Theme.of(context).backgroundColor,
+          color: value
+              ? activeBackgroundColor ?? Theme.of(context).primaryColor
+              : backgroundColor ?? Theme.of(context).backgroundColor,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-              color: isSelected
-                  ? widget.activeBorderColor ?? Theme.of(context).primaryColor
-                  : widget.borderColor ?? Theme.of(context).primaryColor),
+            color: value
+                ? activeBorderColor ?? Theme.of(context).primaryColor
+                : borderColor ?? Theme.of(context).primaryColor,
+          ),
         ),
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(widget.time,
-                style: isSelected ? widget.activeTextStyle : widget.textStyle),
+            child: Text(
+              time,
+              style: value ? activeTextStyle : textStyle,
+            ),
           ),
         ),
       ),

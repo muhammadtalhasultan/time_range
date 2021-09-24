@@ -56,6 +56,11 @@ class _TimeListState extends State<TimeList> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
   void didUpdateWidget(TimeList oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.firstTime != widget.firstTime ||
@@ -64,6 +69,12 @@ class _TimeListState extends State<TimeList> {
       _initialData();
       _animateScroll(hours.indexOf(widget.initialTime));
     }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   _initialData() {

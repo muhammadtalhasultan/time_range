@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:time_range/src/time_button.dart';
+import 'package:time_range/time_range.dart';
 import '../helpers/pump_app.dart';
 import '../utils/param_factory.dart';
 
@@ -26,19 +26,17 @@ void main() {
       );
       group('Style', () {
         testWidgets(
-          'change background color if button is tapped',
+          'change background color according tu value of [value]',
           (WidgetTester tester) async {
             await tester.pumpApp(
               TimeButton(
                 time: ParamFactory.time,
-                onSelect: (time) {},
                 activeBackgroundColor: ParamFactory.blue,
                 backgroundColor: ParamFactory.purple,
+                onSelect: (time) {},
               ),
             );
-
-            final timeButton = find.byType(TimeButton);
-
+            
             final unselectedWidgetBackgroundColor = (tester
                     .widget<Container>(find.byType(Container))
                     .decoration as BoxDecoration)
@@ -49,8 +47,15 @@ void main() {
               ParamFactory.purple,
             );
 
-            await tester.tap(timeButton);
-            await tester.pump();
+            await tester.pumpApp(
+              TimeButton(
+                time: ParamFactory.time,
+                value: ParamFactory.isSelected,
+                activeBackgroundColor: ParamFactory.blue,
+                backgroundColor: ParamFactory.purple,
+                onSelect: (time) {},
+              ),
+            );
 
             final selectedWidgetBackgroundColor = (tester
                     .widget<Container>(find.byType(Container))
@@ -64,19 +69,17 @@ void main() {
           },
         );
         testWidgets(
-          'change text style if button is tapped',
+          'change text style according to value of [value]',
           (WidgetTester tester) async {
             await tester.pumpApp(
               TimeButton(
                 time: ParamFactory.time,
-                onSelect: (time) {},
                 textStyle: ParamFactory.textStyle,
                 activeTextStyle: ParamFactory.activeTextStyle,
+                onSelect: (time) {},
               ),
             );
-
-            final timeButton = find.byType(TimeButton);
-
+            
             final unselectedWidgetTextStyle =
                 (tester.widget<Text>(find.byType(Text)).style);
 
@@ -85,8 +88,15 @@ void main() {
               ParamFactory.textStyle,
             );
 
-            await tester.tap(timeButton);
-            await tester.pump();
+            await tester.pumpApp(
+              TimeButton(
+                time: ParamFactory.time,
+                value: ParamFactory.isSelected,
+                textStyle: ParamFactory.textStyle,
+                activeTextStyle: ParamFactory.activeTextStyle,
+                onSelect: (time) {},
+              ),
+            );
 
             final selectedWidgetTextStyle =
                 (tester.widget<Text>(find.byType(Text)).style);

@@ -124,6 +124,7 @@ class _TimeRangeState extends State<TimeRange> {
 
   void _startHourChanged(TimeOfDay hour) {
     setState(() => _startHour = hour);
+    _startHour = hour;
     if (_endHour != null) {
       if (_endHour!.inMinutes() <= _startHour!.inMinutes() ||
           (_endHour!.inMinutes() - _startHour!.inMinutes())
