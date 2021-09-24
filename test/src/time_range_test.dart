@@ -111,6 +111,42 @@ void main() {
           );
         },
       );
+      group(
+        'Function',
+        () {
+          testWidgets(
+            'callback function is called when press a button',
+            (WidgetTester tester) async {
+              var callbackCalls = false;
+              final onPressed =
+                  (TimeRangeResult? result) => callbackCalls = true;
+
+              await tester.pumpApp(
+                TimeRange(
+                  timeBlock: ParamFactory.timeBlock,
+                  firstTime: ParamFactory.firstTime,
+                  lastTime: ParamFactory.secondTime,
+                  timeStep: ParamFactory.timeStep,
+                  toTitle: Text(ParamFactory.toTitle),
+                  fromTitle: Text(ParamFactory.fromTitle),
+                  activeBackgroundColor: ParamFactory.blue,
+                  onRangeCompleted: (result) => onPressed(result),
+                ),
+              );
+
+              final fromTime = find.textContaining(RegExp('10:10'));
+              await tester.tap(fromTime);
+              await tester.pumpAndSettle();
+
+              final toTime = find.textContaining(RegExp('10:30'));
+              await tester.tap(toTime);
+              await tester.pumpAndSettle();
+
+              expect(callbackCalls, isTrue);
+            },
+          );
+        },
+      );
     },
   );
 }
