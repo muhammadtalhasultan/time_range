@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:time_range/src/time_button.dart';
+import 'package:time_range/time_range.dart';
 import '../helpers/pump_app.dart';
 import '../utils/param_factory.dart';
 

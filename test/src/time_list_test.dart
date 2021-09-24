@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:time_range/src/time_button.dart';
-import 'package:time_range/src/time_list.dart';
 import 'package:time_range/src/util/time_of_day_extension.dart';
+import 'package:time_range/time_range.dart';
 
 import '../helpers/pump_app.dart';
 import '../utils/param_factory.dart';
@@ -123,17 +122,14 @@ void main() {
               await tester.tap(unSelectedChild);
               await tester.pumpAndSettle();
 
-              final activeChild = find.byWidgetPredicate((widget) {
-                if (widget is! Container || widget.decoration == null) {
-                  return false;
-                }
-
-                return (widget.decoration as BoxDecoration).color ==
-                    ParamFactory.blue;
-              });
+              final activeChild = find.byWidgetPredicate(
+                (widget) => ParamFactory.isContainerWithColor(
+                  widget,
+                  ParamFactory.blue,
+                ),
+              );
 
               expect(activeChild, findsOneWidget);
-
             },
           );
         },
