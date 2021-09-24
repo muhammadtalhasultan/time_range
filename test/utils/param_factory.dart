@@ -12,6 +12,9 @@ abstract class ParamFactory {
   static const int timeStep = 10;
   static const int timeBlock = 20;
 
+  // bool
+  static const bool isSelected = true;
+
   // TimeOfDay
   static const TimeOfDay firstTime = TimeOfDay(hour: 10, minute: 10);
   static const TimeOfDay secondTime = TimeOfDay(hour: 10, minute: 40);
