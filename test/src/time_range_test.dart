@@ -56,8 +56,8 @@ void main() {
         'Change',
         () {
           testWidgets(
-            'selected [to] time if we tap a child of that '
-            '[to] list time',
+            'selected [from] and [to] times if we tap a child of its '
+            'respective list',
             (WidgetTester tester) async {
               await tester.pumpApp(
                 TimeRange(
