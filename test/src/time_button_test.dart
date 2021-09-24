@@ -36,7 +36,7 @@ void main() {
                 onSelect: (time) {},
               ),
             );
-
+            
             final unselectedWidgetBackgroundColor = (tester
                     .widget<Container>(find.byType(Container))
                     .decoration as BoxDecoration)
@@ -79,7 +79,7 @@ void main() {
                 onSelect: (time) {},
               ),
             );
-
+            
             final unselectedWidgetTextStyle =
                 (tester.widget<Text>(find.byType(Text)).style);
 
