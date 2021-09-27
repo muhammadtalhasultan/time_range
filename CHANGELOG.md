@@ -1,3 +1,7 @@
+## 1.0.1 - 27/09/2021
+
+* Add testing to package. Thanks to @manuelperez96.
+
 ## 1.0.0 - 17/03/2021
 
 * Migrate to null-safety and refactor for best package files organization
