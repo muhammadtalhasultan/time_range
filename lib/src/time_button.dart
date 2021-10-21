@@ -42,12 +42,18 @@ class TimeButton extends StatelessWidget {
                 : borderColor ?? Theme.of(context).primaryColor,
           ),
         ),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: FittedBox(
+            alignment: Alignment.center,
+            fit: BoxFit.scaleDown,
             child: Text(
               time,
               style: value ? activeTextStyle : textStyle,
+              // one line if always enough since we use the [FittedBox]
+              // that scale down the textsize
+              // anyways, the [FittedBox] would not work with more then one lines
+              maxLines: 1,
             ),
           ),
         ),
