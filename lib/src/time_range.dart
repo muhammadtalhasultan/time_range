@@ -9,6 +9,7 @@ typedef TimeRangeSelectedCallback = void Function(TimeRangeResult? range);
 class TimeRange extends StatefulWidget {
   final int timeStep;
   final int timeBlock;
+  final int? minimalTimeRange;
   final TimeOfDay firstTime;
   final TimeOfDay lastTime;
   final Widget? fromTitle;
@@ -29,6 +30,7 @@ class TimeRange extends StatefulWidget {
     required this.onRangeCompleted,
     required this.firstTime,
     required this.lastTime,
+    this.minimalTimeRange,
     this.timeStep = 60,
     this.fromTitle,
     this.toTitle,
@@ -103,9 +105,7 @@ class _TimeRangeState extends State<TimeRange> {
           ),
         SizedBox(height: 8),
         TimeList(
-          firstTime: _startHour == null
-              ? widget.firstTime.add(minutes: widget.timeBlock)
-              : _startHour!.add(minutes: widget.timeBlock),
+          firstTime: _getFirstTimeEndHour(),
           lastTime: widget.lastTime,
           initialTime: _endHour,
           timeStep: widget.timeBlock,
@@ -120,6 +120,14 @@ class _TimeRangeState extends State<TimeRange> {
         ),
       ],
     );
+  }
+
+  TimeOfDay _getFirstTimeEndHour() {
+    int timeMinutes = widget.minimalTimeRange ?? widget.timeBlock;
+
+    return _startHour == null
+        ? widget.firstTime.add(minutes: timeMinutes)
+        : _startHour!.add(minutes: timeMinutes);
   }
 
   void _startHourChanged(TimeOfDay hour) {
