@@ -86,7 +86,8 @@ class _TimeRangeState extends State<TimeRange> {
           ),
         TimeList(
           firstTime: widget.firstTime,
-          lastTime: widget.lastTime.subtract(minutes: widget.timeBlock),
+          lastTime: widget.lastTime
+              .subtract(minutes: widget.minimalTimeRange ?? widget.timeBlock),
           initialTime: _startHour,
           timeStep: widget.timeStep,
           padding: widget.titlePadding,
