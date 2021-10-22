@@ -1,3 +1,10 @@
+## 1.0.2 - 22/10/2021
+
+* Added minimalTimeRange (Could be like 60 minutes - so the first option of the end is 60 minutes after the start)
+* Fixed nullpointer when first select end (before selecting any start)
+* Fixed non-visible text when the textsize is too large (Check image)
+* Thanks to @stefanschaller
+
 ## 1.0.1 - 27/09/2021
 
 * Add testing to package. Thanks to @manuelperez96.
