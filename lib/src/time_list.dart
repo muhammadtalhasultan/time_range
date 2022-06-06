@@ -50,7 +50,7 @@ class _TimeListState extends State<TimeList> {
   void initState() {
     super.initState();
     _initialData();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _animateScroll(hours.indexOf(widget.initialTime));
     });
   }
