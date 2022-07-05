@@ -1,7 +1,12 @@
+## 1.0.3 - 05/07/2022
+
+* Fix error Fix: 'WidgetsBinding’ excludes null
+* Thanks to @dkobia
+
 ## 1.0.2 - 22/10/2021
 
 * Added minimalTimeRange (Could be like 60 minutes - so the first option of the end is 60 minutes after the start)
-* Fixed nullpointer when first select end (before selecting any start)
+* Fixed null pointer when first select end (before selecting any start)
 * Fixed non-visible text when the textsize is too large (Check image)
 * Thanks to @stefanschaller
 
