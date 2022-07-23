@@ -147,6 +147,43 @@ void main() {
           );
         },
       );
+
+      group(
+        'Format',
+        () {
+          testWidgets(
+            'format for time shown in time button is 24 hour format if we pass [alwaysUse24HourFormat] as true and 12 hr format if we pass false',
+            (WidgetTester tester) async {
+              final twelvehrFormat =
+                  RegExp(r'^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM)$');
+              final twentyFourhrFormat = RegExp('r^(([01]?[0-9]|2[0-3]):[0-5][0-9])');
+
+              await tester.pumpApp(
+                TimeRange(
+                  timeBlock: ParamFactory.timeBlock,
+                  firstTime: ParamFactory.firstTime,
+                  lastTime: ParamFactory.secondTime,
+                  onRangeCompleted: (result) {},
+                  alwaysUse24HourFormat: ParamFactory.alwaysUser24HourFormat,
+                ),
+              );
+
+              final fromTime = find.textContaining(
+                  ParamFactory.alwaysUser24HourFormat
+                      ? twentyFourhrFormat
+                      : twelvehrFormat);
+
+              final toTime = find.textContaining(
+                  ParamFactory.alwaysUser24HourFormat
+                      ? twentyFourhrFormat
+                      : twelvehrFormat);
+
+              expect(fromTime, findsWidgets);
+              expect(toTime, findsWidgets);
+            },
+          );
+        },
+      );
     },
   );
 }
