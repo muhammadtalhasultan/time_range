@@ -23,6 +23,7 @@ class TimeRange extends StatefulWidget {
   final Color? activeBackgroundColor;
   final TextStyle? textStyle;
   final TextStyle? activeTextStyle;
+  final bool alwaysUse24HourFormat;
 
   TimeRange({
     Key? key,
@@ -42,6 +43,7 @@ class TimeRange extends StatefulWidget {
     this.activeBackgroundColor,
     this.textStyle,
     this.activeTextStyle,
+    this.alwaysUse24HourFormat = false,
   })  : assert(
             lastTime.after(firstTime), 'lastTime can not be before firstTime'),
         super(key: key);
@@ -98,6 +100,7 @@ class _TimeRangeState extends State<TimeRange> {
           activeBackgroundColor: widget.activeBackgroundColor,
           textStyle: widget.textStyle,
           activeTextStyle: widget.activeTextStyle,
+          alwaysUse24HourFormat: widget.alwaysUse24HourFormat,
         ),
         if (widget.toTitle != null)
           Padding(
@@ -118,6 +121,7 @@ class _TimeRangeState extends State<TimeRange> {
           activeBackgroundColor: widget.activeBackgroundColor,
           textStyle: widget.textStyle,
           activeTextStyle: widget.activeTextStyle,
+          alwaysUse24HourFormat: widget.alwaysUse24HourFormat,
         ),
       ],
     );

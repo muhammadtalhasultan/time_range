@@ -17,6 +17,7 @@ class TimeList extends StatefulWidget {
   final Color? activeBackgroundColor;
   final TextStyle? textStyle;
   final TextStyle? activeTextStyle;
+  final bool alwaysUse24HourFormat;
 
   TimeList({
     Key? key,
@@ -32,6 +33,7 @@ class TimeList extends StatefulWidget {
     this.activeBackgroundColor,
     this.textStyle,
     this.activeTextStyle,
+    this.alwaysUse24HourFormat = false,
   })  : assert(lastTime.afterOrEqual(firstTime),
             'lastTime not can be before firstTime'),
         super(key: key);
@@ -115,7 +117,8 @@ class _TimeListState extends State<TimeList> {
               activeBackgroundColor: widget.activeBackgroundColor,
               textStyle: widget.textStyle,
               activeTextStyle: widget.activeTextStyle,
-              time: hour.format(context),
+              time: MaterialLocalizations.of(context).formatTimeOfDay(hour,
+                  alwaysUse24HourFormat: widget.alwaysUse24HourFormat),
               value: _selectedHour == hour,
               onSelect: (_) => _selectHour(index, hour),
             ),
