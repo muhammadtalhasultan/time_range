@@ -28,32 +28,35 @@ class TimeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onSelect(time),
-      child: Container(
-        decoration: BoxDecoration(
-          color: value
-              ? activeBackgroundColor ?? Theme.of(context).primaryColor
-              : backgroundColor ?? Theme.of(context).backgroundColor,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () => onSelect(time),
+        child: Container(
+          decoration: BoxDecoration(
             color: value
-                ? activeBorderColor ?? Theme.of(context).primaryColor
-                : borderColor ?? Theme.of(context).primaryColor,
+                ? activeBackgroundColor ?? Theme.of(context).primaryColor
+                : backgroundColor ?? Theme.of(context).backgroundColor,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: value
+                  ? activeBorderColor ?? Theme.of(context).primaryColor
+                  : borderColor ?? Theme.of(context).primaryColor,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: FittedBox(
-            alignment: Alignment.center,
-            fit: BoxFit.scaleDown,
-            child: Text(
-              time,
-              style: value ? activeTextStyle : textStyle,
-              // one line if always enough since we use the [FittedBox]
-              // that scale down the textsize
-              // anyways, the [FittedBox] would not work with more then one lines
-              maxLines: 1,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FittedBox(
+              alignment: Alignment.center,
+              fit: BoxFit.scaleDown,
+              child: Text(
+                time,
+                style: value ? activeTextStyle : textStyle,
+                // one line if always enough since we use the [FittedBox]
+                // that scale down the textsize
+                // anyways, the [FittedBox] would not work with more then one lines
+                maxLines: 1,
+              ),
             ),
           ),
         ),
