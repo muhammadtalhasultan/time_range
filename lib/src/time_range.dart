@@ -5,6 +5,7 @@ import 'package:time_range/src/util/time_of_day_extension.dart';
 export 'package:time_range/src/util/time_of_day_extension.dart';
 
 typedef TimeRangeSelectedCallback = void Function(TimeRangeResult? range);
+typedef OnFirstTimeSelected = void Function(TimeOfDay? startHour);
 
 class TimeRange extends StatefulWidget {
   final int timeStep;
@@ -16,6 +17,7 @@ class TimeRange extends StatefulWidget {
   final Widget? toTitle;
   final double titlePadding;
   final TimeRangeSelectedCallback onRangeCompleted;
+  final OnFirstTimeSelected onFirstTimeSelected;
   final TimeRangeResult? initialRange;
   final Color? borderColor;
   final Color? activeBorderColor;
@@ -29,6 +31,7 @@ class TimeRange extends StatefulWidget {
     Key? key,
     required this.timeBlock,
     required this.onRangeCompleted,
+    required this.onFirstTimeSelected,
     required this.firstTime,
     required this.lastTime,
     this.minimalTimeRange,
@@ -137,6 +140,8 @@ class _TimeRangeState extends State<TimeRange> {
 
   void _startHourChanged(TimeOfDay hour) {
     setState(() => _startHour = hour);
+
+    widget.onFirstTimeSelected(_startHour);
 
     if (_endHour != null) {
       if (_endHour!.inMinutes() <= _startHour!.inMinutes() ||
