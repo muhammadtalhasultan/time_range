@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:time_range/src/time_list.dart';
-import 'package:time_range/src/util/time_of_day_extension.dart';
 
+import 'time_list.dart';
+import 'util/exclude_time_model.dart';
+import 'util/time_of_day_extension.dart';
+
+export 'package:time_range/src/util/exclude_time_model.dart';
 export 'package:time_range/src/util/time_of_day_extension.dart';
 
 typedef TimeRangeSelectedCallback = void Function(TimeRangeResult? range);
@@ -24,6 +27,7 @@ class TimeRange extends StatefulWidget {
   final TextStyle? textStyle;
   final TextStyle? activeTextStyle;
   final bool alwaysUse24HourFormat;
+  final List<ExcludedTime>? excludedTime;
 
   TimeRange({
     Key? key,
@@ -44,17 +48,17 @@ class TimeRange extends StatefulWidget {
     this.textStyle,
     this.activeTextStyle,
     this.alwaysUse24HourFormat = false,
+    this.excludedTime,
   })  : assert(
             lastTime.after(firstTime), 'lastTime can not be before firstTime'),
         super(key: key);
 
   @override
-  _TimeRangeState createState() => _TimeRangeState();
+  State<TimeRange> createState() => _TimeRangeState();
 }
 
 class _TimeRangeState extends State<TimeRange> {
-  TimeOfDay? _startHour;
-  TimeOfDay? _endHour;
+  TimeOfDay? _startHour, _endHour, lastEnabledHour;
 
   @override
   void initState() {
@@ -87,6 +91,8 @@ class _TimeRangeState extends State<TimeRange> {
             child: widget.fromTitle,
           ),
         TimeList(
+          position: Position.start,
+          excludedTime: widget.excludedTime,
           firstTime: widget.firstTime,
           lastTime: widget.lastTime
               .subtract(minutes: widget.minimalTimeRange ?? widget.timeBlock),
@@ -107,8 +113,11 @@ class _TimeRangeState extends State<TimeRange> {
             padding: EdgeInsets.only(left: widget.titlePadding, top: 8),
             child: widget.toTitle,
           ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         TimeList(
+          lastEnabledHour: lastEnabledHour,
+          position: Position.end,
+          excludedTime: widget.excludedTime,
           firstTime: _getFirstTimeEndHour(),
           lastTime: widget.lastTime,
           initialTime: _endHour,
@@ -135,8 +144,20 @@ class _TimeRangeState extends State<TimeRange> {
         : _startHour!.add(minutes: timeMinutes);
   }
 
+  double toDouble(TimeOfDay? myTime) =>
+      (myTime?.hour ?? 0) + (myTime?.minute ?? 0) / 60.0;
+
   void _startHourChanged(TimeOfDay hour) {
-    setState(() => _startHour = hour);
+    setState(() {
+      _endHour = lastEnabledHour = null;
+      _startHour = hour;
+    });
+
+    Iterable<ExcludedTime>? exceed =
+        widget.excludedTime?.where((e) => hour.beforeOrEqual(e.start));
+    if (exceed?.isNotEmpty == true) {
+      lastEnabledHour = exceed?.first.start;
+    }
 
     if (_endHour != null) {
       if (_endHour!.inMinutes() <= _startHour!.inMinutes() ||

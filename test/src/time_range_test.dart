@@ -37,8 +37,8 @@ void main() {
                   firstTime: ParamFactory.firstTime,
                   lastTime: ParamFactory.secondTime,
                   timeStep: ParamFactory.timeStep,
-                  toTitle: Text(ParamFactory.toTitle),
-                  fromTitle: Text(ParamFactory.fromTitle),
+                  toTitle: const Text(ParamFactory.toTitle),
+                  fromTitle: const Text(ParamFactory.fromTitle),
                   onRangeCompleted: (range) {},
                 ),
               );
@@ -65,8 +65,8 @@ void main() {
                   firstTime: ParamFactory.firstTime,
                   lastTime: ParamFactory.secondTime,
                   timeStep: ParamFactory.timeStep,
-                  toTitle: Text(ParamFactory.toTitle),
-                  fromTitle: Text(ParamFactory.fromTitle),
+                  toTitle: const Text(ParamFactory.toTitle),
+                  fromTitle: const Text(ParamFactory.fromTitle),
                   activeBackgroundColor: ParamFactory.blue,
                   onRangeCompleted: (range) {},
                 ),
@@ -118,8 +118,7 @@ void main() {
             'callback function is called when press a button',
             (WidgetTester tester) async {
               var callbackCalls = false;
-              final onPressed =
-                  (TimeRangeResult? result) => callbackCalls = true;
+              onPressed(TimeRangeResult? result) => callbackCalls = true;
 
               await tester.pumpApp(
                 TimeRange(
@@ -127,8 +126,8 @@ void main() {
                   firstTime: ParamFactory.firstTime,
                   lastTime: ParamFactory.secondTime,
                   timeStep: ParamFactory.timeStep,
-                  toTitle: Text(ParamFactory.toTitle),
-                  fromTitle: Text(ParamFactory.fromTitle),
+                  toTitle: const Text(ParamFactory.toTitle),
+                  fromTitle: const Text(ParamFactory.fromTitle),
                   activeBackgroundColor: ParamFactory.blue,
                   onRangeCompleted: (result) => onPressed(result),
                 ),
@@ -156,7 +155,8 @@ void main() {
             (WidgetTester tester) async {
               final twelvehrFormat =
                   RegExp(r'^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM)$');
-              final twentyFourhrFormat = RegExp('r^(([01]?[0-9]|2[0-3]):[0-5][0-9])');
+              final twentyFourhrFormat =
+                  RegExp('r^(([01]?[0-9]|2[0-3]):[0-5][0-9])');
 
               await tester.pumpApp(
                 TimeRange(

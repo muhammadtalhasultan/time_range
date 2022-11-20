@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:time_range/src/time_button.dart';
-import 'util/time_of_day_extension.dart';
+
+import '../time_range.dart';
 
 typedef TimeSelectedCallback = void Function(TimeOfDay hour);
 
+enum Position { start, end }
+
 class TimeList extends StatefulWidget {
-  final TimeOfDay firstTime;
-  final TimeOfDay lastTime;
-  final TimeOfDay? initialTime;
+  final TimeOfDay firstTime, lastTime;
+  final TimeOfDay? initialTime, lastEnabledHour;
   final int timeStep;
   final double padding;
   final TimeSelectedCallback onHourSelected;
-  final Color? borderColor;
-  final Color? activeBorderColor;
-  final Color? backgroundColor;
-  final Color? activeBackgroundColor;
-  final TextStyle? textStyle;
-  final TextStyle? activeTextStyle;
+  final Color? borderColor, activeBorderColor;
+  final Color? backgroundColor, activeBackgroundColor;
+  final TextStyle? textStyle, activeTextStyle;
   final bool alwaysUse24HourFormat;
+  final List<ExcludedTime>? excludedTime;
+  final Position? position;
 
   TimeList({
     Key? key,
@@ -34,12 +34,15 @@ class TimeList extends StatefulWidget {
     this.textStyle,
     this.activeTextStyle,
     this.alwaysUse24HourFormat = false,
+    this.excludedTime,
+    this.position,
+    this.lastEnabledHour,
   })  : assert(lastTime.afterOrEqual(firstTime),
             'lastTime not can be before firstTime'),
         super(key: key);
 
   @override
-  _TimeListState createState() => _TimeListState();
+  State<TimeList> createState() => _TimeListState();
 }
 
 class _TimeListState extends State<TimeList> {
@@ -107,20 +110,26 @@ class _TimeListState extends State<TimeList> {
         itemExtent: itemExtent,
         itemBuilder: (BuildContext context, int index) {
           final hour = hours[index]!;
+          var excludedTime = widget.excludedTime?.where((e) =>
+              (widget.position == Position.start ? e.start : e.end) == hour);
+          bool disabled = excludedTime?.isNotEmpty == true;
+          if (widget.lastEnabledHour != null) {
+            disabled = hour.after(widget.lastEnabledHour!);
+          }
 
           return Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: TimeButton(
-              borderColor: widget.borderColor,
+              borderColor: disabled ? Colors.grey[700] : widget.borderColor,
+              backgroundColor: disabled ? Colors.grey : widget.backgroundColor,
               activeBorderColor: widget.activeBorderColor,
-              backgroundColor: widget.backgroundColor,
               activeBackgroundColor: widget.activeBackgroundColor,
               textStyle: widget.textStyle,
               activeTextStyle: widget.activeTextStyle,
               time: MaterialLocalizations.of(context).formatTimeOfDay(hour,
                   alwaysUse24HourFormat: widget.alwaysUse24HourFormat),
               value: _selectedHour == hour,
-              onSelect: (_) => _selectHour(index, hour),
+              onSelect: (_) => disabled ? null : _selectHour(index, hour),
             ),
           );
         },
@@ -141,6 +150,6 @@ class _TimeListState extends State<TimeList> {
       offset = _scrollController.position.maxScrollExtent;
     }
     _scrollController.animateTo(offset,
-        duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+        duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
   }
 }

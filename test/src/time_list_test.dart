@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:time_range/src/util/time_of_day_extension.dart';
 import 'package:time_range/time_range.dart';
+
 import '../helpers/pump_app.dart';
 import '../utils/param_factory.dart';
 
