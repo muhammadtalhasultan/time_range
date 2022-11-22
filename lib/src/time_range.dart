@@ -28,6 +28,7 @@ class TimeRange extends StatefulWidget {
   final TextStyle? activeTextStyle;
   final bool alwaysUse24HourFormat;
   final List<ExcludedTime>? excludedTime;
+  final bool? resetTime;
 
   TimeRange({
     Key? key,
@@ -49,6 +50,7 @@ class TimeRange extends StatefulWidget {
     this.activeTextStyle,
     this.alwaysUse24HourFormat = false,
     this.excludedTime,
+    this.resetTime,
   })  : assert(
             lastTime.after(firstTime), 'lastTime can not be before firstTime'),
         super(key: key);
@@ -81,6 +83,10 @@ class _TimeRangeState extends State<TimeRange> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.resetTime == true) {
+      setState(() => _startHour = _endHour = lastEnabledHour = null);
+    }
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
