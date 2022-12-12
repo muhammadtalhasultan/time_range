@@ -37,7 +37,7 @@ abstract class ParamFactory {
       return false;
     }
 
-    return (widget.decoration as BoxDecoration).color == color;
+    return (widget.decoration! as BoxDecoration).color == color;
   }
 
   static bool alwaysUser24HourFormat = false;

@@ -3,9 +3,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:time_range/src/util/time_of_day_extension.dart';
 
 void main() {
-  final smallTime = TimeOfDay(hour: 10, minute: 20);
-  final bigTime = TimeOfDay(hour: 40, minute: 40);
-  final cloneBigTime = TimeOfDay(hour: 40, minute: 40);
+  const smallTime = TimeOfDay(hour: 10, minute: 20);
+  const bigTime = TimeOfDay(hour: 40, minute: 40);
+  const cloneBigTime = TimeOfDay(hour: 40, minute: 40);
 
   group(
     'TimeOfDayExtension',
@@ -167,7 +167,7 @@ void main() {
               );
               test(
                 'return true if first time if equal than second time',
-                    () {
+                () {
                   final result = bigTime.afterOrEqual(cloneBigTime);
                   expect(result, isTrue);
                 },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:time_range/time_range.dart';
+
 import '../helpers/pump_app.dart';
 import '../utils/param_factory.dart';
 
@@ -36,10 +37,10 @@ void main() {
                 onSelect: (time) {},
               ),
             );
-            
+
             final unselectedWidgetBackgroundColor = (tester
                     .widget<Container>(find.byType(Container))
-                    .decoration as BoxDecoration)
+                    .decoration! as BoxDecoration)
                 .color;
 
             expect(
@@ -58,8 +59,8 @@ void main() {
             );
 
             final selectedWidgetBackgroundColor = (tester
-                    .widget<Container>(find.byType(Container))
-                    .decoration as BoxDecoration)
+                    .widget<Container>(find.byType(DecoratedBox))
+                    .decoration! as BoxDecoration)
                 .color;
 
             expect(
@@ -79,9 +80,9 @@ void main() {
                 onSelect: (time) {},
               ),
             );
-            
+
             final unselectedWidgetTextStyle =
-                (tester.widget<Text>(find.byType(Text)).style);
+                tester.widget<Text>(find.byType(Text)).style;
 
             expect(
               unselectedWidgetTextStyle,
@@ -99,7 +100,7 @@ void main() {
             );
 
             final selectedWidgetTextStyle =
-                (tester.widget<Text>(find.byType(Text)).style);
+                tester.widget<Text>(find.byType(Text)).style;
 
             expect(
               selectedWidgetTextStyle,

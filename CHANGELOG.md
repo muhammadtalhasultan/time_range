@@ -1,3 +1,8 @@
+## 1.1.0 - 12/12/2022
+
+* Integrate a CI system
+* Thanks @pablojimpas
+
 ## 1.0.3 - 05/07/2022
 
 * Fix error Fix: 'WidgetsBinding’ excludes null

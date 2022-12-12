@@ -1,42 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:time_range/src/time_list.dart';
-import 'package:time_range/src/util/exclude_time_model.dart';
 import 'package:time_range/src/util/time_of_day_extension.dart';
 
-export 'package:time_range/src/util/exclude_time_model.dart';
-export 'package:time_range/src/util/time_of_day_extension.dart';
-
 typedef TimeRangeSelectedCallback = void Function(TimeRangeResult? range);
-typedef OnFirstTimeSelected = void Function(TimeOfDay? startHour);
 
 class TimeRange extends StatefulWidget {
-  final int timeStep;
-  final int timeBlock;
-  final int? minimalTimeRange;
-  final TimeOfDay firstTime;
-  final TimeOfDay lastTime;
-  final Widget? fromTitle;
-  final Widget? toTitle;
-  final double titlePadding;
-  final TimeRangeSelectedCallback onRangeCompleted;
-  final OnFirstTimeSelected onFirstTimeSelected;
-  final TimeRangeResult? initialRange;
-  final Color? borderColor;
-  final Color? activeBorderColor;
-  final Color? backgroundColor;
-  final Color? activeBackgroundColor;
-  final TextStyle? textStyle;
-  final TextStyle? activeTextStyle;
-  final bool alwaysUse24HourFormat;
-  final List<ExcludedTime>? excludedTime;
-
   TimeRange({
     Key? key,
     required this.timeBlock,
     required this.onRangeCompleted,
-    required this.onFirstTimeSelected,
     required this.firstTime,
     required this.lastTime,
+    this.onFirstTimeSelected,
     this.minimalTimeRange,
     this.timeStep = 60,
     this.fromTitle,
@@ -50,19 +25,38 @@ class TimeRange extends StatefulWidget {
     this.textStyle,
     this.activeTextStyle,
     this.alwaysUse24HourFormat = false,
-    this.excludedTime,
   })  : assert(
-            lastTime.after(firstTime), 'lastTime can not be before firstTime'),
+          lastTime.after(firstTime),
+          'lastTime can not be before firstTime',
+        ),
         super(key: key);
 
+  final int timeStep;
+  final int timeBlock;
+  final int? minimalTimeRange;
+  final TimeOfDay firstTime;
+  final TimeOfDay lastTime;
+  final Widget? fromTitle;
+  final Widget? toTitle;
+  final double titlePadding;
+  final TimeRangeSelectedCallback onRangeCompleted;
+  final TimeSelectedCallback? onFirstTimeSelected;
+  final TimeRangeResult? initialRange;
+  final Color? borderColor;
+  final Color? activeBorderColor;
+  final Color? backgroundColor;
+  final Color? activeBackgroundColor;
+  final TextStyle? textStyle;
+  final TextStyle? activeTextStyle;
+  final bool alwaysUse24HourFormat;
+
   @override
-  _TimeRangeState createState() => _TimeRangeState();
+  State<TimeRange> createState() => _TimeRangeState();
 }
 
 class _TimeRangeState extends State<TimeRange> {
   TimeOfDay? _startHour;
   TimeOfDay? _endHour;
-  TimeOfDay? _lastEnabledHour;
 
   @override
   void initState() {
@@ -109,16 +103,13 @@ class _TimeRangeState extends State<TimeRange> {
           textStyle: widget.textStyle,
           activeTextStyle: widget.activeTextStyle,
           alwaysUse24HourFormat: widget.alwaysUse24HourFormat,
-          position: Position.start,
-          lastEnabledHour: _lastEnabledHour,
-          excludedTime: widget.excludedTime,
         ),
         if (widget.toTitle != null)
           Padding(
             padding: EdgeInsets.only(left: widget.titlePadding, top: 8),
             child: widget.toTitle,
           ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         TimeList(
           firstTime: _getFirstTimeEndHour(),
           lastTime: widget.lastTime,
@@ -133,16 +124,13 @@ class _TimeRangeState extends State<TimeRange> {
           textStyle: widget.textStyle,
           activeTextStyle: widget.activeTextStyle,
           alwaysUse24HourFormat: widget.alwaysUse24HourFormat,
-          position: Position.end,
-          lastEnabledHour: _lastEnabledHour,
-          excludedTime: widget.excludedTime,
         ),
       ],
     );
   }
 
   TimeOfDay _getFirstTimeEndHour() {
-    int timeMinutes = widget.minimalTimeRange ?? widget.timeBlock;
+    final timeMinutes = widget.minimalTimeRange ?? widget.timeBlock;
 
     return _startHour == null
         ? widget.firstTime.add(minutes: timeMinutes)
@@ -152,7 +140,7 @@ class _TimeRangeState extends State<TimeRange> {
   void _startHourChanged(TimeOfDay hour) {
     setState(() => _startHour = hour);
 
-    widget.onFirstTimeSelected(_startHour);
+    widget.onFirstTimeSelected?.call(hour);
 
     if (_endHour != null) {
       if (_endHour!.inMinutes() <= _startHour!.inMinutes() ||
@@ -169,8 +157,6 @@ class _TimeRangeState extends State<TimeRange> {
 
   void _endHourChanged(TimeOfDay hour) {
     setState(() => _endHour = hour);
-    // Check if the [starthour] is not null since it's possible that
-    // the user first select the [endhour] and then the [starthour].
     if (_startHour != null) {
       widget.onRangeCompleted(TimeRangeResult(_startHour!, _endHour!));
     }
@@ -178,8 +164,8 @@ class _TimeRangeState extends State<TimeRange> {
 }
 
 class TimeRangeResult {
+  TimeRangeResult(this.start, this.end);
+
   final TimeOfDay start;
   final TimeOfDay end;
-
-  TimeRangeResult(this.start, this.end);
 }

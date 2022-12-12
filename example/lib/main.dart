@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:time_range/time_range.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
@@ -14,8 +16,10 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -24,8 +28,8 @@ class _HomePageState extends State<HomePage> {
   static const double leftPadding = 50;
 
   final _defaultTimeRange = TimeRangeResult(
-    TimeOfDay(hour: 14, minute: 00),
-    TimeOfDay(hour: 15, minute: 00),
+    const TimeOfDay(hour: 14, minute: 00),
+    const TimeOfDay(hour: 15, minute: 00),
   );
   TimeRangeResult? _timeRange;
 
@@ -53,9 +57,9 @@ class _HomePageState extends State<HomePage> {
                     .copyWith(fontWeight: FontWeight.bold, color: dark),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TimeRange(
-              fromTitle: Text(
+              fromTitle: const Text(
                 'FROM',
                 style: TextStyle(
                   fontSize: 14,
@@ -63,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              toTitle: Text(
+              toTitle: const Text(
                 'TO',
                 style: TextStyle(
                   fontSize: 14,
@@ -72,11 +76,11 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               titlePadding: leftPadding,
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                 fontWeight: FontWeight.normal,
                 color: dark,
               ),
-              activeTextStyle: TextStyle(
+              activeTextStyle: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: orange,
               ),
@@ -84,25 +88,15 @@ class _HomePageState extends State<HomePage> {
               activeBorderColor: dark,
               backgroundColor: Colors.transparent,
               activeBackgroundColor: dark,
-              firstTime: TimeOfDay(hour: 8, minute: 00),
-              lastTime: TimeOfDay(hour: 20, minute: 00),
+              firstTime: const TimeOfDay(hour: 8, minute: 00),
+              lastTime: const TimeOfDay(hour: 20, minute: 00),
               initialRange: _timeRange,
               timeStep: 30,
               timeBlock: 30,
               onRangeCompleted: (range) => setState(() => _timeRange = range),
               onFirstTimeSelected: (startHour) {},
-              excludedTime: [
-                ExcludedTime(
-                  start: const TimeOfDay(hour: 09, minute: 00),
-                  end: const TimeOfDay(hour: 09, minute: 30),
-                ),
-                ExcludedTime(
-                  start: const TimeOfDay(hour: 10, minute: 30),
-                  end: const TimeOfDay(hour: 11, minute: 00),
-                ),
-              ],
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             if (_timeRange != null)
               Padding(
                 padding: const EdgeInsets.only(top: 8.0, left: leftPadding),
@@ -111,14 +105,14 @@ class _HomePageState extends State<HomePage> {
                   children: <Widget>[
                     Text(
                       'Selected Range: ${_timeRange!.start.format(context)} - ${_timeRange!.end.format(context)}',
-                      style: TextStyle(fontSize: 20, color: dark),
+                      style: const TextStyle(fontSize: 20, color: dark),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     MaterialButton(
-                      child: Text('Default'),
                       onPressed: () =>
                           setState(() => _timeRange = _defaultTimeRange),
                       color: orange,
+                      child: const Text('Default'),
                     )
                   ],
                 ),

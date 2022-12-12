@@ -32,7 +32,7 @@ class TimeButton extends StatelessWidget {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () => onSelect(time),
-        child: Container(
+        child: DecoratedBox(
           decoration: BoxDecoration(
             color: value
                 ? activeBackgroundColor ?? Theme.of(context).primaryColor
@@ -45,9 +45,8 @@ class TimeButton extends StatelessWidget {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: FittedBox(
-              alignment: Alignment.center,
               fit: BoxFit.scaleDown,
               child: Text(
                 time,

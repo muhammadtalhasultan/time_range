@@ -1,30 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:time_range/src/time_button.dart';
-import 'package:time_range/src/util/exclude_time_model.dart';
-import 'util/time_of_day_extension.dart';
+import 'package:time_range/src/util/time_of_day_extension.dart';
 
 typedef TimeSelectedCallback = void Function(TimeOfDay hour);
 
-enum Position { start, end }
-
 class TimeList extends StatefulWidget {
-  final TimeOfDay firstTime;
-  final TimeOfDay lastTime;
-  final TimeOfDay? initialTime;
-  final TimeOfDay? lastEnabledHour;
-  final int timeStep;
-  final double padding;
-  final TimeSelectedCallback onHourSelected;
-  final Color? borderColor;
-  final Color? activeBorderColor;
-  final Color? backgroundColor;
-  final Color? activeBackgroundColor;
-  final TextStyle? textStyle;
-  final TextStyle? activeTextStyle;
-  final bool alwaysUse24HourFormat;
-  final List<ExcludedTime>? excludedTime;
-  final Position? position;
-
   TimeList({
     Key? key,
     this.padding = 0,
@@ -40,15 +20,28 @@ class TimeList extends StatefulWidget {
     this.textStyle,
     this.activeTextStyle,
     this.alwaysUse24HourFormat = false,
-    this.excludedTime,
-    this.position,
-    this.lastEnabledHour,
-  })  : assert(lastTime.afterOrEqual(firstTime),
-            'lastTime not can be before firstTime'),
+  })  : assert(
+          lastTime.afterOrEqual(firstTime),
+          'lastTime not can be before firstTime',
+        ),
         super(key: key);
 
+  final TimeOfDay firstTime;
+  final TimeOfDay lastTime;
+  final TimeOfDay? initialTime;
+  final int timeStep;
+  final double padding;
+  final TimeSelectedCallback onHourSelected;
+  final Color? borderColor;
+  final Color? activeBorderColor;
+  final Color? backgroundColor;
+  final Color? activeBackgroundColor;
+  final TextStyle? textStyle;
+  final TextStyle? activeTextStyle;
+  final bool alwaysUse24HourFormat;
+
   @override
-  _TimeListState createState() => _TimeListState();
+  State<TimeList> createState() => _TimeListState();
 }
 
 class _TimeListState extends State<TimeList> {
@@ -88,7 +81,7 @@ class _TimeListState extends State<TimeList> {
     super.dispose();
   }
 
-  _initialData() {
+  void _initialData() {
     _selectedHour = widget.initialTime;
     _loadHours();
   }
@@ -99,7 +92,8 @@ class _TimeListState extends State<TimeList> {
         TimeOfDay(hour: widget.firstTime.hour, minute: widget.firstTime.minute);
     while (hour.beforeOrEqual(widget.lastTime)) {
       hours.add(
-          hour.hour == TimeOfDay.hoursPerDay ? hour.replacing(hour: 0) : hour);
+        hour.hour == TimeOfDay.hoursPerDay ? hour.replacing(hour: 0) : hour,
+      );
       hour = hour.add(minutes: widget.timeStep);
     }
   }
@@ -116,26 +110,22 @@ class _TimeListState extends State<TimeList> {
         itemExtent: itemExtent,
         itemBuilder: (BuildContext context, int index) {
           final hour = hours[index]!;
-          var excludedTime = widget.excludedTime?.where((e) =>
-              (widget.position == Position.start ? e.start : e.end) == hour);
-          bool disabled = excludedTime?.isNotEmpty == true;
-          if (widget.lastEnabledHour != null) {
-            disabled = hour.after(widget.lastEnabledHour!);
-          }
 
           return Padding(
-            padding: const EdgeInsets.only(right: 8.0),
+            padding: const EdgeInsets.only(right: 8),
             child: TimeButton(
-              borderColor: disabled ? Colors.grey[700] : widget.borderColor,
+              borderColor: widget.borderColor,
               activeBorderColor: widget.activeBorderColor,
-              backgroundColor: disabled ? Colors.grey : widget.backgroundColor,
+              backgroundColor: widget.backgroundColor,
               activeBackgroundColor: widget.activeBackgroundColor,
               textStyle: widget.textStyle,
               activeTextStyle: widget.activeTextStyle,
-              time: MaterialLocalizations.of(context).formatTimeOfDay(hour,
-                  alwaysUse24HourFormat: widget.alwaysUse24HourFormat),
+              time: MaterialLocalizations.of(context).formatTimeOfDay(
+                hour,
+                alwaysUse24HourFormat: widget.alwaysUse24HourFormat,
+              ),
               value: _selectedHour == hour,
-              onSelect: (_) => disabled ? null : _selectHour(index, hour),
+              onSelect: (_) => _selectHour(index, hour),
             ),
           );
         },
@@ -151,11 +141,14 @@ class _TimeListState extends State<TimeList> {
   }
 
   void _animateScroll(int index) {
-    double offset = index < 0 ? 0 : index * itemExtent;
+    var offset = index < 0 ? 0.0 : index * itemExtent;
     if (offset > _scrollController.position.maxScrollExtent) {
       offset = _scrollController.position.maxScrollExtent;
     }
-    _scrollController.animateTo(offset,
-        duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+    _scrollController.animateTo(
+      offset,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeIn,
+    );
   }
 }
