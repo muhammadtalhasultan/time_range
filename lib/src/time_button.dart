@@ -32,7 +32,8 @@ class TimeButton extends StatelessWidget {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () => onSelect(time),
-        child: DecoratedBox(
+        // ignore: use_decorated_box
+        child: Container(
           decoration: BoxDecoration(
             color: value
                 ? activeBackgroundColor ?? Theme.of(context).primaryColor

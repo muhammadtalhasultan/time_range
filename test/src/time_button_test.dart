@@ -59,7 +59,7 @@ void main() {
             );
 
             final selectedWidgetBackgroundColor = (tester
-                    .widget<Container>(find.byType(DecoratedBox))
+                    .widget<Container>(find.byType(Container))
                     .decoration! as BoxDecoration)
                 .color;
 
