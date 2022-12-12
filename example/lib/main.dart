@@ -24,8 +24,8 @@ class _HomePageState extends State<HomePage> {
   static const double leftPadding = 50;
 
   final _defaultTimeRange = TimeRangeResult(
-    TimeOfDay(hour: 14, minute: 50),
-    TimeOfDay(hour: 15, minute: 20),
+    TimeOfDay(hour: 14, minute: 00),
+    TimeOfDay(hour: 15, minute: 00),
   );
   TimeRangeResult? _timeRange;
 
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white70,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,9 +87,20 @@ class _HomePageState extends State<HomePage> {
               firstTime: TimeOfDay(hour: 8, minute: 00),
               lastTime: TimeOfDay(hour: 20, minute: 00),
               initialRange: _timeRange,
-              timeStep: 10,
+              timeStep: 30,
               timeBlock: 30,
               onRangeCompleted: (range) => setState(() => _timeRange = range),
+              onFirstTimeSelected: (startHour) {},
+              excludedTime: [
+                ExcludedTime(
+                  start: const TimeOfDay(hour: 09, minute: 00),
+                  end: const TimeOfDay(hour: 09, minute: 30),
+                ),
+                ExcludedTime(
+                  start: const TimeOfDay(hour: 10, minute: 30),
+                  end: const TimeOfDay(hour: 11, minute: 00),
+                ),
+              ],
             ),
             SizedBox(height: 30),
             if (_timeRange != null)

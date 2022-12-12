@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:time_range/src/time_list.dart';
+import 'package:time_range/src/util/exclude_time_model.dart';
 import 'package:time_range/src/util/time_of_day_extension.dart';
 
+export 'package:time_range/src/util/exclude_time_model.dart';
 export 'package:time_range/src/util/time_of_day_extension.dart';
 
 typedef TimeRangeSelectedCallback = void Function(TimeRangeResult? range);
@@ -26,6 +28,7 @@ class TimeRange extends StatefulWidget {
   final TextStyle? textStyle;
   final TextStyle? activeTextStyle;
   final bool alwaysUse24HourFormat;
+  final List<ExcludedTime>? excludedTime;
 
   TimeRange({
     Key? key,
@@ -47,6 +50,7 @@ class TimeRange extends StatefulWidget {
     this.textStyle,
     this.activeTextStyle,
     this.alwaysUse24HourFormat = false,
+    this.excludedTime,
   })  : assert(
             lastTime.after(firstTime), 'lastTime can not be before firstTime'),
         super(key: key);
@@ -58,6 +62,7 @@ class TimeRange extends StatefulWidget {
 class _TimeRangeState extends State<TimeRange> {
   TimeOfDay? _startHour;
   TimeOfDay? _endHour;
+  TimeOfDay? _lastEnabledHour;
 
   @override
   void initState() {
@@ -104,6 +109,9 @@ class _TimeRangeState extends State<TimeRange> {
           textStyle: widget.textStyle,
           activeTextStyle: widget.activeTextStyle,
           alwaysUse24HourFormat: widget.alwaysUse24HourFormat,
+          position: Position.start,
+          lastEnabledHour: _lastEnabledHour,
+          excludedTime: widget.excludedTime,
         ),
         if (widget.toTitle != null)
           Padding(
@@ -125,6 +133,9 @@ class _TimeRangeState extends State<TimeRange> {
           textStyle: widget.textStyle,
           activeTextStyle: widget.activeTextStyle,
           alwaysUse24HourFormat: widget.alwaysUse24HourFormat,
+          position: Position.end,
+          lastEnabledHour: _lastEnabledHour,
+          excludedTime: widget.excludedTime,
         ),
       ],
     );

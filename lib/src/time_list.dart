@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:time_range/src/time_button.dart';
+import 'package:time_range/src/util/exclude_time_model.dart';
 import 'util/time_of_day_extension.dart';
 
 typedef TimeSelectedCallback = void Function(TimeOfDay hour);
+
+enum Position { start, end }
 
 class TimeList extends StatefulWidget {
   final TimeOfDay firstTime;
   final TimeOfDay lastTime;
   final TimeOfDay? initialTime;
+  final TimeOfDay? lastEnabledHour;
   final int timeStep;
   final double padding;
   final TimeSelectedCallback onHourSelected;
@@ -18,6 +22,8 @@ class TimeList extends StatefulWidget {
   final TextStyle? textStyle;
   final TextStyle? activeTextStyle;
   final bool alwaysUse24HourFormat;
+  final List<ExcludedTime>? excludedTime;
+  final Position? position;
 
   TimeList({
     Key? key,
@@ -34,6 +40,9 @@ class TimeList extends StatefulWidget {
     this.textStyle,
     this.activeTextStyle,
     this.alwaysUse24HourFormat = false,
+    this.excludedTime,
+    this.position,
+    this.lastEnabledHour,
   })  : assert(lastTime.afterOrEqual(firstTime),
             'lastTime not can be before firstTime'),
         super(key: key);
@@ -107,20 +116,26 @@ class _TimeListState extends State<TimeList> {
         itemExtent: itemExtent,
         itemBuilder: (BuildContext context, int index) {
           final hour = hours[index]!;
+          var excludedTime = widget.excludedTime?.where((e) =>
+              (widget.position == Position.start ? e.start : e.end) == hour);
+          bool disabled = excludedTime?.isNotEmpty == true;
+          if (widget.lastEnabledHour != null) {
+            disabled = hour.after(widget.lastEnabledHour!);
+          }
 
           return Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: TimeButton(
-              borderColor: widget.borderColor,
+              borderColor: disabled ? Colors.grey[700] : widget.borderColor,
               activeBorderColor: widget.activeBorderColor,
-              backgroundColor: widget.backgroundColor,
+              backgroundColor: disabled ? Colors.grey : widget.backgroundColor,
               activeBackgroundColor: widget.activeBackgroundColor,
               textStyle: widget.textStyle,
               activeTextStyle: widget.activeTextStyle,
               time: MaterialLocalizations.of(context).formatTimeOfDay(hour,
                   alwaysUse24HourFormat: widget.alwaysUse24HourFormat),
               value: _selectedHour == hour,
-              onSelect: (_) => _selectHour(index, hour),
+              onSelect: (_) => disabled ? null : _selectHour(index, hour),
             ),
           );
         },
