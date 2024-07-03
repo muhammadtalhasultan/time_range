@@ -37,7 +37,7 @@ class TimeButton extends StatelessWidget {
           decoration: BoxDecoration(
             color: value
                 ? activeBackgroundColor ?? Theme.of(context).primaryColor
-                : backgroundColor ?? Theme.of(context).backgroundColor,
+                : backgroundColor ?? Theme.of(context).canvasColor,
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
               color: value

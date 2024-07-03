@@ -1,3 +1,6 @@
+## 1.1.1 - 04/06/2024
+* Updated flutter packages
+
 ## 1.1.0 - 12/12/2022
 
 * Integrate a CI system
